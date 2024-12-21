@@ -11,30 +11,19 @@ using Microsoft.Data.SqlClient;
 
 namespace Login_and_create_account_systems
 {
-    public partial class Form3 : Form
+    public partial class Form8 : Form
     {
-        public Form3()
+        public Form8()
         {
             InitializeComponent();
             HideNav();
-            showLastLogin();    
-            LoadProfileFromDatabase();  
-            LoadImageFromDatabase();
+            LoadProfileFromDatabase();
         }
 
         private void HideNav()
         {
             panel_hidden.Visible = true;
-
         }
-
-        private void showLastLogin()
-        {
-            label_usernameses.Text = UserSession.Username;
-        }
-
-        //Application Exit
-
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
@@ -50,6 +39,20 @@ namespace Login_and_create_account_systems
             }
         }
 
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            form3.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            form3.Show();
+            this.Hide();
+        }
+
         private void pictureBox5_Click(object sender, EventArgs e)
         {
             Form6 form6 = new Form6();
@@ -59,7 +62,6 @@ namespace Login_and_create_account_systems
 
         private void button3_Click(object sender, EventArgs e)
         {
-
             Form6 form6 = new Form6();
             form6.Show();
             this.Hide();
@@ -72,24 +74,10 @@ namespace Login_and_create_account_systems
             this.Hide();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
             Form7 form7 = new Form7();
             form7.Show();
-            this.Hide();
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            Form8 form8 = new Form8();
-            form8.Show();
-            this.Hide();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Form8 form8 = new Form8();
-            form8.Show();
             this.Hide();
         }
 
@@ -108,74 +96,6 @@ namespace Login_and_create_account_systems
             form2.Show();
             this.Hide();
         }
-
-        private void LoadImageFromDatabase()
-        {
-            string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-
-                    string query = "SELECT FullBodyPic FROM Users WHERE Username = @Username";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Username", UserSession.Username);
-
-                    object result = cmd.ExecuteScalar(); // Get the image data
-
-                    if (result != DBNull.Value && result is byte[] imageBytes)
-                    {
-                        using (MemoryStream ms = new MemoryStream(imageBytes))
-                        {
-                            Image img = Image.FromStream(ms);
-
-                            // Fix the rotation using EXIF metadata
-                            img = CorrectImageOrientation(img);
-
-                            pictureBox4.Image = img;
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No profile picture found or data is NULL.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error while loading the image: " + ex.Message);
-                }
-            }
-        }
-
-        // Corrects the image orientation based on EXIF data
-        private Image CorrectImageOrientation(Image img)
-        {
-            if (img.PropertyIdList.Contains(0x0112)) // 0x0112 = PropertyTagOrientation
-            {
-                int orientation = img.GetPropertyItem(0x0112).Value[0];
-
-                switch (orientation)
-                {
-                    case 3: // Rotate 180
-                        img.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                        break;
-                    case 6: // Rotate 90 clockwise
-                        img.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                        break;
-                    case 8: // Rotate 90 counterclockwise
-                        img.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                        break;
-                }
-
-                // Remove the orientation property to prevent future issues
-                img.RemovePropertyItem(0x0112);
-            }
-
-            return img;
-        }
-
 
         private void LoadProfileFromDatabase()
         {

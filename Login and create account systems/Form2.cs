@@ -107,7 +107,7 @@ namespace Login_and_create_account_systems
 
         private bool IsValidLogin(string username, string password)
         {
-            string connectionString = "Data Source=STORM\\SQLEXPRESS;Initial Catalog=StyleForgeAI;Integrated Security=True;Trust Server Certificate=True";
+            string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -115,29 +115,36 @@ namespace Login_and_create_account_systems
                 {
                     conn.Open();
 
-                    // Query to check if the username and password match
-                    string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND Password = @Password";
+                   
+                    string query = @"SELECT UserID, Username, Password, Email, LastLogin, CreatedAt 
+                             FROM Users WHERE Username = @Username AND Password = @Password";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Username", username);
                     cmd.Parameters.AddWithValue("@Password", password);
 
-                    int count = (int)cmd.ExecuteScalar(); // Get the count of matching records
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (count > 0)
+                    if (reader.Read())
                     {
-                        // Update LastLogin if login is valid
-                        string updateQuery = "UPDATE Users SET LastLogin = @LastLogin WHERE Username = @Username";
-                        SqlCommand updateCmd = new SqlCommand(updateQuery, conn);
-                        updateCmd.Parameters.AddWithValue("@LastLogin", DateTime.Now);
-                        updateCmd.Parameters.AddWithValue("@Username", username);
+                      
+                        UserSession.UserID = reader.GetInt32(0);
+                        UserSession.Username = reader.GetString(1);
+                        UserSession.Password = reader.GetString(2);
+                        UserSession.Email = reader.GetString(3);
+                        UserSession.LastLogin = reader.IsDBNull(4) ? DateTime.MinValue : reader.GetDateTime(4);
+                        UserSession.CreatedAt = reader.GetDateTime(5);
 
-                        updateCmd.ExecuteNonQuery();
+                        reader.Close(); 
+
+                        
+                        UpdateLastLogin(conn, username);
+
                         return true;
                     }
                     else
                     {
-                        return false; // Username and password do not match
+                        return false; 
                     }
                 }
                 catch (Exception ex)
@@ -148,9 +155,25 @@ namespace Login_and_create_account_systems
             }
         }
 
+        
+        private void UpdateLastLogin(SqlConnection conn, string username)
+        {
+            string updateQuery = "UPDATE Users SET LastLogin = @LastLogin WHERE Username = @Username";
+
+            using (SqlCommand updateCmd = new SqlCommand(updateQuery, conn))
+            {
+                updateCmd.Parameters.AddWithValue("@LastLogin", DateTime.Now);
+                updateCmd.Parameters.AddWithValue("@Username", username);
+
+                updateCmd.ExecuteNonQuery();
+            }
+        }
+
+
 
         private void label_forgotpassword_Click(object sender, EventArgs e)
         {
+            UserSession.Username = string.Empty;
             Form4 form = new Form4();
             form.Show();
             this.Hide();

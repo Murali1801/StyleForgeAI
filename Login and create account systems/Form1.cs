@@ -93,7 +93,7 @@ namespace Login_and_create_account_systems
             }
 
             // Save to the database
-            string connectionString = "Data Source=STORM\\SQLEXPRESS;Initial Catalog=StyleForgeAI;Integrated Security=True;Trust Server Certificate=True";
+            string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

@@ -11,15 +11,15 @@ using Microsoft.Data.SqlClient;
 
 namespace Login_and_create_account_systems
 {
-    public partial class Form3 : Form
+    public partial class Form6 : Form
     {
-        public Form3()
+        public Form6()
         {
             InitializeComponent();
             HideNav();
-            showLastLogin();    
-            LoadProfileFromDatabase();  
+            LoadProfileFromDatabase();
             LoadImageFromDatabase();
+
         }
 
         private void HideNav()
@@ -27,17 +27,9 @@ namespace Login_and_create_account_systems
             panel_hidden.Visible = true;
 
         }
-
-        private void showLastLogin()
-        {
-            label_usernameses.Text = UserSession.Username;
-        }
-
-        //Application Exit
-
-
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+
             if (panel_hidden.Visible == false)
             {
                 panel_hidden.Visible = true;
@@ -50,29 +42,28 @@ namespace Login_and_create_account_systems
             }
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
+        private void pictureBox2_Click(object sender, EventArgs e)
         {
-            Form6 form6 = new Form6();
-            form6.Show();
+            Form3 form3 = new Form3();
+            form3.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            form3.Show();
             this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
-        {
-
-            Form6 form6 = new Form6();
-            form6.Show();
-            this.Hide();
-        }
-
-        private void pictureBox7_Click(object sender, EventArgs e)
         {
             Form7 form7 = new Form7();
             form7.Show();
             this.Hide();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void pictureBox7_Click(object sender, EventArgs e)
         {
             Form7 form7 = new Form7();
             form7.Show();
@@ -108,6 +99,55 @@ namespace Login_and_create_account_systems
             form2.Show();
             this.Hide();
         }
+
+
+
+        private void btnUpload_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string imagePath = openFileDialog.FileName;
+
+                // Convert the selected image to byte[]
+                byte[] imageBytes = File.ReadAllBytes(imagePath);
+
+                // Call the method to save it to the database
+                SaveImageToDatabase(imageBytes);
+
+            }
+        }
+
+        private void SaveImageToDatabase(byte[] imageBytes)
+        {
+            string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    string query = "UPDATE Users SET FullBodyPic = @FullBodyPic WHERE Username = @Username";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@FullBodyPic", imageBytes);
+                    cmd.Parameters.AddWithValue("@Username", UserSession.Username); // Assuming Username is stored in session
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Image uploaded successfully!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
+
 
         private void LoadImageFromDatabase()
         {
@@ -177,6 +217,79 @@ namespace Login_and_create_account_systems
         }
 
 
+
+
+
+
+        private void btnBrowseFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string imagePath = openFileDialog.FileName;
+
+                // Convert the selected image to byte[]
+                byte[] imageBytes = File.ReadAllBytes(imagePath);
+
+                // Call the method to save it to the database
+                SaveImageToDatabase(imageBytes);
+            }
+        }
+
+        private void btnShowPic_Click(object sender, EventArgs e)
+        {
+            LoadImageFromDatabase();
+        }
+
+        private void btnProfile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string imagePath = openFileDialog.FileName;
+
+                // Convert the selected image to byte[]
+                byte[] imageBytes = File.ReadAllBytes(imagePath);
+
+                // Call the method to save it to the database
+                SaveProfileToDatabase(imageBytes);
+            }
+        }
+
+        private void SaveProfileToDatabase(byte[] imageBytes)
+        {
+            string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    string query = "UPDATE Users SET ProfilePicture = @ProfilePicture WHERE Username = @Username";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@ProfilePicture", imageBytes);
+                    cmd.Parameters.AddWithValue("@Username", UserSession.Username); // Assuming Username is stored in session
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Image uploaded successfully!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
+
         private void LoadProfileFromDatabase()
         {
             string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
@@ -212,5 +325,7 @@ namespace Login_and_create_account_systems
                 }
             }
         }
+
     }
 }
+

@@ -132,6 +132,7 @@
             // label_forgotpassword
             // 
             label_forgotpassword.AutoSize = true;
+            label_forgotpassword.Cursor = Cursors.Hand;
             label_forgotpassword.Font = new Font("Nirmala UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label_forgotpassword.ForeColor = Color.Black;
             label_forgotpassword.Location = new Point(236, 450);

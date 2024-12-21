@@ -11,9 +11,9 @@ using Microsoft.Data.SqlClient;
 
 namespace Login_and_create_account_systems
 {
-    public partial class Form4 : Form
+    public partial class Form10 : Form
     {
-        public Form4()
+        public Form10()
         {
             InitializeComponent();
             HideInvalidLabel();
@@ -36,7 +36,9 @@ namespace Login_and_create_account_systems
 
         private void exit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Form7 form7 = new Form7();
+            form7.Show();
+            this.Hide();
         }
 
         private void label_signup_Click(object sender, EventArgs e)
@@ -173,5 +175,7 @@ namespace Login_and_create_account_systems
                 txtConfirmPassword.PasswordChar = '*';
             }
         }
+
+        
     }
 }

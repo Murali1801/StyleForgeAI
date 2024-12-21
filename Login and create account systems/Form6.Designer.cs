@@ -1,6 +1,6 @@
 ﻿namespace Login_and_create_account_systems
 {
-    partial class Form3
+    partial class Form6
     {
         /// <summary>
         /// Required designer variable.
@@ -28,16 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form6));
             label4 = new Label();
             panel_head = new Panel();
-            profile = new PictureBox();
             label1 = new Label();
             button5 = new Button();
-            button1 = new Button();
             button4 = new Button();
             button3 = new Button();
             button2 = new Button();
+            button1 = new Button();
             panel2 = new Panel();
             panel_hidden = new Panel();
             panel1 = new Panel();
@@ -51,17 +50,25 @@
             panel_nav = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             panel3 = new Panel();
+            panel4 = new Panel();
+            panel7 = new Panel();
+            btnProfile = new Button();
+            label9 = new Label();
             panel6 = new Panel();
+            btnShowPic = new Button();
             label8 = new Label();
             pictureBox4 = new PictureBox();
-            panel4 = new Panel();
-            label_usernameses = new Label();
-            label2 = new Label();
-            button6 = new Button();
+            panel_changepassword = new Panel();
+            btnBrowseFile = new Button();
+            label7 = new Label();
+            pictureBox1 = new PictureBox();
+            label6 = new Label();
+            label5 = new Label();
             panel5 = new Panel();
+            profile = new PictureBox();
+            label2 = new Label();
             label3 = new Label();
             panel_head.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)profile).BeginInit();
             panel2.SuspendLayout();
             panel_hidden.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -74,10 +81,14 @@
             panel_nav.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             panel3.SuspendLayout();
+            panel4.SuspendLayout();
+            panel7.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            panel4.SuspendLayout();
+            panel_changepassword.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)profile).BeginInit();
             SuspendLayout();
             // 
             // label4
@@ -85,7 +96,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Nirmala UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.Black;
-            label4.Location = new Point(28, 14);
+            label4.Location = new Point(28, 13);
             label4.Name = "label4";
             label4.Size = new Size(86, 17);
             label4.TabIndex = 40;
@@ -96,7 +107,6 @@
             panel_head.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel_head.AutoSize = true;
             panel_head.BackColor = Color.White;
-            panel_head.Controls.Add(profile);
             panel_head.Controls.Add(label1);
             panel_head.Controls.Add(label4);
             panel_head.Location = new Point(15, 12);
@@ -106,17 +116,6 @@
             panel_head.Size = new Size(1120, 90);
             panel_head.TabIndex = 1;
             // 
-            // profile
-            // 
-            profile.BackColor = SystemColors.Control;
-            profile.Location = new Point(1020, 3);
-            profile.Margin = new Padding(0);
-            profile.Name = "profile";
-            profile.Size = new Size(97, 84);
-            profile.SizeMode = PictureBoxSizeMode.Zoom;
-            profile.TabIndex = 49;
-            profile.TabStop = false;
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -124,9 +123,9 @@
             label1.ForeColor = Color.FromArgb(126, 34, 206);
             label1.Location = new Point(28, 40);
             label1.Name = "label1";
-            label1.Size = new Size(130, 31);
+            label1.Size = new Size(86, 31);
             label1.TabIndex = 41;
-            label1.Text = "Dashboard";
+            label1.Text = "Profile";
             // 
             // button5
             // 
@@ -143,21 +142,6 @@
             button5.Text = "Sign Out";
             button5.UseVisualStyleBackColor = false;
             button5.Click += button5_Click;
-            // 
-            // button1
-            // 
-            button1.BackColor = Color.White;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.FromArgb(126, 34, 206);
-            button1.Location = new Point(0, 160);
-            button1.Margin = new Padding(0);
-            button1.Name = "button1";
-            button1.Size = new Size(160, 70);
-            button1.TabIndex = 0;
-            button1.Text = "Dashboard";
-            button1.UseVisualStyleBackColor = false;
             // 
             // button4
             // 
@@ -182,12 +166,12 @@
             button3.FlatStyle = FlatStyle.Flat;
             button3.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button3.ForeColor = Color.White;
-            button3.Location = new Point(0, 230);
+            button3.Location = new Point(0, 300);
             button3.Margin = new Padding(0);
             button3.Name = "button3";
             button3.Size = new Size(160, 70);
             button3.TabIndex = 2;
-            button3.Text = "Profile";
+            button3.Text = "Security";
             button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 
@@ -198,23 +182,38 @@
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(0, 300);
+            button2.Location = new Point(0, 160);
             button2.Margin = new Padding(0);
             button2.Name = "button2";
             button2.Size = new Size(160, 70);
             button2.TabIndex = 1;
-            button2.Text = "Security";
+            button2.Text = "Dashboard";
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.White;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.FromArgb(126, 34, 206);
+            button1.Location = new Point(0, 230);
+            button1.Margin = new Padding(0);
+            button1.Name = "button1";
+            button1.Size = new Size(160, 70);
+            button1.TabIndex = 0;
+            button1.Text = "Profile";
+            button1.UseVisualStyleBackColor = false;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(192, 129, 247);
             panel2.Controls.Add(button5);
-            panel2.Controls.Add(button1);
             panel2.Controls.Add(button4);
             panel2.Controls.Add(button3);
             panel2.Controls.Add(button2);
+            panel2.Controls.Add(button1);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Margin = new Padding(0);
@@ -243,7 +242,7 @@
             // pictureBox3
             // 
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(22, 26);
+            pictureBox3.Location = new Point(22, 25);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(40, 40);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
@@ -282,7 +281,6 @@
             pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox5.TabIndex = 45;
             pictureBox5.TabStop = false;
-            pictureBox5.Click += pictureBox5_Click;
             // 
             // exit
             // 
@@ -304,6 +302,7 @@
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 43;
             pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
             // 
             // panel_logo
             // 
@@ -340,14 +339,11 @@
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(1400, 800);
-            flowLayoutPanel1.TabIndex = 5;
+            flowLayoutPanel1.TabIndex = 3;
             // 
             // panel3
             // 
             panel3.AutoSize = true;
-            panel3.Controls.Add(panel5);
-            panel3.Controls.Add(button6);
-            panel3.Controls.Add(panel6);
             panel3.Controls.Add(panel4);
             panel3.Controls.Add(panel_head);
             panel3.Dock = DockStyle.Fill;
@@ -358,15 +354,86 @@
             panel3.Size = new Size(1150, 800);
             panel3.TabIndex = 9;
             // 
+            // panel4
+            // 
+            panel4.AutoSize = true;
+            panel4.Controls.Add(panel7);
+            panel4.Controls.Add(panel6);
+            panel4.Controls.Add(panel_changepassword);
+            panel4.Controls.Add(panel5);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(0, 0);
+            panel4.Margin = new Padding(0);
+            panel4.MinimumSize = new Size(1150, 800);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(1150, 800);
+            panel4.TabIndex = 10;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.White;
+            panel7.Controls.Add(btnProfile);
+            panel7.Controls.Add(label9);
+            panel7.Location = new Point(15, 650);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(645, 138);
+            panel7.TabIndex = 8;
+            // 
+            // btnProfile
+            // 
+            btnProfile.BackColor = Color.White;
+            btnProfile.Cursor = Cursors.Hand;
+            btnProfile.FlatAppearance.BorderSize = 0;
+            btnProfile.FlatStyle = FlatStyle.Flat;
+            btnProfile.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnProfile.ForeColor = Color.White;
+            btnProfile.Image = (Image)resources.GetObject("btnProfile.Image");
+            btnProfile.Location = new Point(134, 55);
+            btnProfile.Name = "btnProfile";
+            btnProfile.Size = new Size(367, 70);
+            btnProfile.TabIndex = 47;
+            btnProfile.Text = "Browse File";
+            btnProfile.UseVisualStyleBackColor = false;
+            btnProfile.Click += btnProfile_Click;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.ForeColor = Color.FromArgb(126, 34, 206);
+            label9.Location = new Point(175, 8);
+            label9.Name = "label9";
+            label9.Size = new Size(245, 31);
+            label9.TabIndex = 47;
+            label9.Text = "Upoad Profile Picture";
+            // 
             // panel6
             // 
             panel6.BackColor = Color.White;
+            panel6.Controls.Add(btnShowPic);
             panel6.Controls.Add(label8);
             panel6.Controls.Add(pictureBox4);
-            panel6.Location = new Point(689, 175);
+            panel6.Location = new Point(684, 120);
             panel6.Name = "panel6";
-            panel6.Size = new Size(446, 601);
-            panel6.TabIndex = 8;
+            panel6.Size = new Size(451, 668);
+            panel6.TabIndex = 7;
+            // 
+            // btnShowPic
+            // 
+            btnShowPic.BackColor = Color.FromArgb(126, 34, 206);
+            btnShowPic.Cursor = Cursors.Hand;
+            btnShowPic.FlatAppearance.BorderSize = 0;
+            btnShowPic.FlatStyle = FlatStyle.Flat;
+            btnShowPic.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnShowPic.ForeColor = Color.White;
+            btnShowPic.Location = new Point(32, 585);
+            btnShowPic.Margin = new Padding(0);
+            btnShowPic.Name = "btnShowPic";
+            btnShowPic.Size = new Size(398, 70);
+            btnShowPic.TabIndex = 5;
+            btnShowPic.Text = "Show";
+            btnShowPic.UseVisualStyleBackColor = false;
+            btnShowPic.Click += btnShowPic_Click;
             // 
             // label8
             // 
@@ -382,93 +449,146 @@
             // pictureBox4
             // 
             pictureBox4.BackColor = SystemColors.Control;
-            pictureBox4.Location = new Point(23, 43);
+            pictureBox4.Location = new Point(32, 43);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(398, 526);
             pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 4;
             pictureBox4.TabStop = false;
             // 
-            // panel4
+            // panel_changepassword
             // 
-            panel4.BackColor = Color.White;
-            panel4.Controls.Add(label_usernameses);
-            panel4.Controls.Add(label2);
-            panel4.Location = new Point(15, 116);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(1120, 44);
-            panel4.TabIndex = 2;
+            panel_changepassword.BackColor = Color.White;
+            panel_changepassword.Controls.Add(btnBrowseFile);
+            panel_changepassword.Controls.Add(label7);
+            panel_changepassword.Controls.Add(pictureBox1);
+            panel_changepassword.Controls.Add(label6);
+            panel_changepassword.Controls.Add(label5);
+            panel_changepassword.Location = new Point(15, 120);
+            panel_changepassword.Name = "panel_changepassword";
+            panel_changepassword.Size = new Size(645, 509);
+            panel_changepassword.TabIndex = 3;
             // 
-            // label_usernameses
+            // btnBrowseFile
             // 
-            label_usernameses.AutoSize = true;
-            label_usernameses.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_usernameses.ForeColor = Color.FromArgb(126, 34, 206);
-            label_usernameses.Location = new Point(555, 7);
-            label_usernameses.Name = "label_usernameses";
-            label_usernameses.Size = new Size(118, 31);
-            label_usernameses.TabIndex = 43;
-            label_usernameses.Text = "username";
+            btnBrowseFile.BackColor = Color.White;
+            btnBrowseFile.Cursor = Cursors.Hand;
+            btnBrowseFile.FlatAppearance.BorderSize = 0;
+            btnBrowseFile.FlatStyle = FlatStyle.Flat;
+            btnBrowseFile.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBrowseFile.ForeColor = Color.White;
+            btnBrowseFile.Image = (Image)resources.GetObject("btnBrowseFile.Image");
+            btnBrowseFile.Location = new Point(134, 403);
+            btnBrowseFile.Name = "btnBrowseFile";
+            btnBrowseFile.Size = new Size(367, 70);
+            btnBrowseFile.TabIndex = 46;
+            btnBrowseFile.Text = "Browse File";
+            btnBrowseFile.UseVisualStyleBackColor = false;
+            btnBrowseFile.Click += btnBrowseFile_Click;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.LightGray;
+            label7.Location = new Point(166, 136);
+            label7.Name = "label7";
+            label7.Size = new Size(272, 31);
+            label7.TabIndex = 45;
+            label7.Text = "File Should be JPG, PNG";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(53, 197);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(530, 290);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 44;
+            pictureBox1.TabStop = false;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Nirmala UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.Black;
+            label6.Location = new Point(71, 75);
+            label6.Name = "label6";
+            label6.Size = new Size(483, 46);
+            label6.TabIndex = 43;
+            label6.Text = "Upload Your Full Body Photo";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.FromArgb(126, 34, 206);
+            label5.Location = new Point(28, 19);
+            label5.Name = "label5";
+            label5.Size = new Size(215, 31);
+            label5.TabIndex = 42;
+            label5.Text = "Create Your Profile";
+            // 
+            // panel5
+            // 
+            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel5.AutoSize = true;
+            panel5.BackColor = Color.White;
+            panel5.Controls.Add(profile);
+            panel5.Controls.Add(label2);
+            panel5.Controls.Add(label3);
+            panel5.Location = new Point(15, 12);
+            panel5.Margin = new Padding(0);
+            panel5.MinimumSize = new Size(1120, 90);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(1120, 90);
+            panel5.TabIndex = 1;
+            // 
+            // profile
+            // 
+            profile.BackColor = SystemColors.Control;
+            profile.Location = new Point(1020, 3);
+            profile.Margin = new Padding(0);
+            profile.Name = "profile";
+            profile.Size = new Size(97, 84);
+            profile.SizeMode = PictureBoxSizeMode.Zoom;
+            profile.TabIndex = 48;
+            profile.TabStop = false;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(126, 34, 206);
-            label2.Location = new Point(436, 7);
+            label2.Location = new Point(28, 40);
             label2.Name = "label2";
-            label2.Size = new Size(113, 31);
-            label2.TabIndex = 42;
-            label2.Text = "Welcome";
-            // 
-            // button6
-            // 
-            button6.BackColor = Color.FromArgb(126, 34, 206);
-            button6.FlatAppearance.BorderSize = 0;
-            button6.FlatStyle = FlatStyle.Flat;
-            button6.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button6.ForeColor = Color.White;
-            button6.Location = new Point(15, 706);
-            button6.Margin = new Padding(0);
-            button6.Name = "button6";
-            button6.Size = new Size(652, 70);
-            button6.TabIndex = 5;
-            button6.Text = "Click To See The Magic";
-            button6.UseVisualStyleBackColor = false;
-            // 
-            // panel5
-            // 
-            panel5.BackColor = Color.White;
-            panel5.Controls.Add(label3);
-            panel5.Location = new Point(15, 175);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(652, 514);
-            panel5.TabIndex = 9;
+            label2.Size = new Size(86, 31);
+            label2.TabIndex = 41;
+            label2.Text = "Profile";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.FromArgb(126, 34, 206);
-            label3.Location = new Point(16, 10);
+            label3.Font = new Font("Nirmala UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(28, 13);
             label3.Name = "label3";
-            label3.Size = new Size(90, 31);
-            label3.TabIndex = 48;
-            label3.Text = "Results";
+            label3.Size = new Size(86, 17);
+            label3.TabIndex = 40;
+            label3.Text = "StyleForgeAI";
             // 
-            // Form3
+            // Form6
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1400, 800);
             Controls.Add(flowLayoutPanel1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "Form3";
+            Name = "Form6";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form3";
+            Text = "Form6";
             panel_head.ResumeLayout(false);
             panel_head.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)profile).EndInit();
             panel2.ResumeLayout(false);
             panel_hidden.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
@@ -483,27 +603,33 @@
             flowLayoutPanel1.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
+            panel_changepassword.ResumeLayout(false);
+            panel_changepassword.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)profile).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private Panel panel_navhidden;
+
         private Label label4;
         private Panel panel_head;
         private Label label1;
         private Button button5;
-        private Button button1;
         private Button button4;
         private Button button3;
         private Button button2;
+        private Button button1;
         private Panel panel2;
         private Panel panel_hidden;
         private Panel panel1;
@@ -518,14 +644,22 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Panel panel3;
         private Panel panel4;
-        private Label label_usernameses;
-        private Label label2;
-        private PictureBox profile;
-        private Panel panel6;
-        private Label label8;
-        private PictureBox pictureBox4;
         private Panel panel5;
+        private Label label2;
         private Label label3;
-        private Button button6;
+        private Panel panel_changepassword;
+        private Label label5;
+        private Label label6;
+        private Label label7;
+        private PictureBox pictureBox1;
+        private Button btnProfile;
+        private PictureBox pictureBox4;
+        private Button btnBrowseFile;
+        private Panel panel6;
+        private Button btnShowPic;
+        private Label label8;
+        private Panel panel7;
+        private Label label9;
+        private PictureBox profile;
     }
 }
