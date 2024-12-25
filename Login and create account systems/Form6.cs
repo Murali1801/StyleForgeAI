@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.IO;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -19,13 +20,15 @@ namespace Login_and_create_account_systems
         private string imgHippoApiUrl = "https://api.imghippo.com/v1/upload"; // Replace with actual ImgHippo API URL
         private string imgHippoApiKey = "191d6566b275d0609a6c3b38e36f8bc3";
         public string imagePath;
+        public string destinationPath;
+        public string newimagePath;
         public string imageUrl;
-        public string apiKey;
+        public string apiKey = "191d6566b275d0609a6c3b38e36f8bc3";
 
         public string GetApiKey()
         {
             // Try to get the API key from environment variables
-            string apiKey = Environment.GetEnvironmentVariable("IMGHIPPO_API_KEY");
+            //apiKey = Environment.GetEnvironmentVariable("IMGHIPPO_API_KEY");
             if (!string.IsNullOrEmpty(apiKey))
             {
                 return apiKey;
@@ -39,7 +42,7 @@ namespace Login_and_create_account_systems
             }
 
             MessageBox.Show("API key is not available. Please set it in the environment variables or app config.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return null;
+            return "191d6566b275d0609a6c3b38e36f8bc3";
         }
 
         public string GetApiKeyFromAppConfig()
@@ -52,8 +55,8 @@ namespace Login_and_create_account_systems
         {
             InitializeComponent();
             HideNav();
-            LoadProfileFromDatabase();
             LoadImageFromDatabase();
+            LoadProfileFromDatabase();
         }
 
         private void HideNav() => panel_hidden.Visible = true;
@@ -119,7 +122,7 @@ namespace Login_and_create_account_systems
             this.Hide();
         }
 
-
+        
 
         private async void btnBrowseFile_Click(object sender, EventArgs e)
         {
@@ -131,25 +134,106 @@ namespace Login_and_create_account_systems
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 imagePath = openFileDialog.FileName;
-
-                // Convert the selected image to byte[]
                 byte[] imageBytes = File.ReadAllBytes(imagePath);
+                // Get the current directory of the application (Project directory)
+                string projectDirectory = Application.StartupPath;
 
-                // Call the method to upload image to ImgHippo and save URL in UserImages table
-                /*await TestNetworkConnection();
-                await UploadToImgHippoAsync(imageBytes);
-                UploadImageToImgHippoAndSaveUrlToUserImages(imageBytes);*/
-                
-                
+                // Define the destination path within the project directory
+                destinationPath = Path.Combine(projectDirectory, Path.GetFileName(imagePath));
+
+                // Ensure the destination directory exists (in case there's a folder structure)
+                string directory = Path.GetDirectoryName(destinationPath);
+                Directory.CreateDirectory(directory);
+
+                // Copy the selected image to the project directory
+                File.Copy(imagePath, destinationPath, true);
+
+
+                // Save the new image path to the Users table (or your database)
+                SaveImagePathToDatabase(destinationPath);
+                SaveImageToDatabase(imageBytes);
+
+                GlobalSettings.DestinationPath = destinationPath;
+
+                // Call ImgHippo API to upload and get the URL
+                string imageUrl = await UploadImageToImgHippoAsync(destinationPath, apiKey);
+
+                if (imageUrl != null)
+                {
+                    // Save the image URL to the UserImages table
+                    SaveImageUrlToUserImages(imageUrl);
+
+                    // Display the image URL and API JSON response
+                    MessageBox.Show($"Image URL: {imageUrl}\nImage Path: {destinationPath}", "Image Upload Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to upload image to ImgHippo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+
+            
         }
 
+
+        private void SaveImagePathToDatabase(string imagePath)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("UPDATE Users SET FullBodyPic = @FullBodyPic WHERE UserID = @UserID", conn);
+                    cmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+                    cmd.Parameters.AddWithValue("@FullBodyPic", destinationPath);
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Image path uploaded successfully!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
+        /*private void LoadImageFromPath(string imagePath)
+        {
+            try
+            {
+                // Check if the image path is valid
+                if (!string.IsNullOrEmpty(destinationPath) && File.Exists(destinationPath))
+                {
+                    // Load the image from the specified path
+                    Image image = Image.FromFile(destinationPath);
+
+                    // Set the image to the PictureBox
+                    image = CorrectImageOrientation(image);
+                    pictureBox4.Image = image;
+
+                    // Optionally, you can adjust the PictureBox size mode if needed
+                    pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage; // or other modes like AutoSize, CenterImage, etc.
+                }
+                else
+                {
+                    MessageBox.Show("The specified image path is invalid or the file does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that occur while loading the image
+                MessageBox.Show($"An error occurred while loading the image: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }*/
+
+
         private async void btnShowPic_Click(object sender, EventArgs e)
-        { 
+        {
             GetApiKey();
-            //await UploadImageToImgHippoAsync(imagePath,apiKey);
             LoadImageFromDatabase();
-            SaveImageUrlToUserImages(imageUrl);
+            //await UploadImageToImgHippoAsync(imagePath,apiKey);
+            //LoadImageFromPath(destinationPath);
+            //SaveImageUrlToUserImages(imageUrl);
             LoadImageUrlFromDatabase();
             CallApiAndDisplayOutput();
         }
@@ -303,6 +387,55 @@ namespace Login_and_create_account_systems
                 MessageBox.Show("Error: " + ex.Message);
             }
         }*/
+        private static async Task<string> UploadImageToImgHippoAsync(string imagePath, string apiKey)
+        {
+            using (var client = new HttpClient())
+            {
+                using (var content = new MultipartFormDataContent())
+                {
+                    content.Add(new StringContent(apiKey), "api_key");
+                    content.Add(new StringContent("My Image"), "title");
+
+                    using (var fileStream = File.OpenRead(imagePath))
+                    {
+                        content.Add(new StreamContent(fileStream), "file", Path.GetFileName(imagePath));
+
+                        var response = await client.PostAsync("https://api.imghippo.com/v1/upload", content);
+                        response.EnsureSuccessStatusCode();
+
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        var json = JObject.Parse(jsonResponse);
+
+                        return json["data"]["url"].ToString(); // Adjust according to actual response format
+                    }
+                }
+            }
+        }
+
+
+
+        /*private void SaveImageUrlToUserImages(string imageUrl)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("INSERT INTO UserImages (UserID, ImageUrl) VALUES (@UserID, @ImageUrl)", conn);
+                    cmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+                    cmd.Parameters.AddWithValue("@ImageUrl", imageUrl);
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Image URL uploaded successfully!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }*/
+
 
         private void SaveImageUrlToUserImages(string imageUrl)
         {
@@ -334,15 +467,15 @@ namespace Login_and_create_account_systems
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT ImageUrl FROM UserImages WHERE UserID = @UserID", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT TOP 1 ImageUrl FROM UserImages WHERE UserID = @UserID ORDER BY KeyID DESC", conn);
                     cmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
 
-                    string imageUrl = cmd.ExecuteScalar() as string;
+                    imageUrl = cmd.ExecuteScalar() as string;
 
                     if (!string.IsNullOrEmpty(imageUrl))
                     {
                         // Load and display the image from the URL
-                        DisplayImageFromUrl(imageUrl);
+                        //DisplayImageFromUrl(imageUrl);
                         MessageBox.Show(imageUrl);
                     }
                     else
@@ -355,8 +488,9 @@ namespace Login_and_create_account_systems
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
+            //return imageUrl;
         }
-        
+
         /*private string GetImageUrlFromDatabase()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -403,14 +537,15 @@ namespace Login_and_create_account_systems
             }
         }*/
 
-        
+
         public string jsonresult;
         private async void CallApiAndDisplayOutput()
         {
             try
             {
                 // Retrieve the image URL from the database
-                string imageUrl = "https://i.imghippo.com/files/pX1238ccw.webp";
+                LoadImageUrlFromDatabase();
+                
 
                 if (string.IsNullOrEmpty(imageUrl))
                 {
@@ -449,7 +584,7 @@ namespace Login_and_create_account_systems
 
 
 
-        private async void DisplayImageFromUrl(string imageUrl)
+        /*private async void DisplayImageFromUrl(string imageUrl)
         {
             try
             {
@@ -467,9 +602,34 @@ namespace Login_and_create_account_systems
             {
                 MessageBox.Show("Error loading image from URL: " + ex.Message);
             }
+        }*/
+
+
+        private void SaveImageToDatabase(byte[] imageBytes)
+        {
+            string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    string query = "UPDATE Users SET FullBodyBin = @FullBodyBin WHERE Username = @Username";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@FullBodyBin", imageBytes);
+                    cmd.Parameters.AddWithValue("@Username", UserSession.Username); // Assuming Username is stored in session
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Image uploaded successfully!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
         }
-
-
 
 
         private void SaveProfileToDatabase(byte[] imageBytes)
@@ -555,7 +715,7 @@ namespace Login_and_create_account_systems
 
         private void LoadImageFromDatabase()
         {
-            byte[] imageBytes = ExecuteDatabaseQuery("SELECT FullBodyPic FROM Users WHERE Username = @Username");
+            byte[] imageBytes = ExecuteDatabaseQuery("SELECT FullBodyBin FROM Users WHERE Username = @Username");
 
             if (imageBytes != null)
             {
@@ -597,7 +757,7 @@ namespace Login_and_create_account_systems
             return img;
         }
 
-        
+
         private void UploadProfileImage()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog

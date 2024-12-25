@@ -9,17 +9,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 
+
 namespace Login_and_create_account_systems
 {
     public partial class Form3 : Form
     {
+        public string destinationPath = GlobalSettings.DestinationPath;
         public Form3()
         {
             InitializeComponent();
             HideNav();
-            showLastLogin();    
-            LoadProfileFromDatabase();  
+            showLastLogin();
             LoadImageFromDatabase();
+            //LoadImageFromPath(destinationPath);
+            LoadProfileFromDatabase();
         }
 
         private void HideNav()
@@ -109,6 +112,35 @@ namespace Login_and_create_account_systems
             this.Hide();
         }
 
+        /*private void LoadImageFromPath(string imagePath)
+        {
+            try
+            {
+                // Check if the image path is valid
+                if (!string.IsNullOrEmpty(destinationPath) && File.Exists(destinationPath))
+                {
+                    // Load the image from the specified path
+                    Image image = Image.FromFile(destinationPath);
+
+                    // Set the image to the PictureBox
+                    image = CorrectImageOrientation(image);
+                    pictureBox4.Image = image;
+
+                    // Optionally, you can adjust the PictureBox size mode if needed
+                    pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage; // or other modes like AutoSize, CenterImage, etc.
+                }
+                else
+                {
+                    MessageBox.Show("The specified image path is invalid or the file does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that occur while loading the image
+                MessageBox.Show($"An error occurred while loading the image: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }*/
+
         private void LoadImageFromDatabase()
         {
             string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
@@ -119,7 +151,7 @@ namespace Login_and_create_account_systems
                 {
                     conn.Open();
 
-                    string query = "SELECT FullBodyPic FROM Users WHERE Username = @Username";
+                    string query = "SELECT FullBodyBin FROM Users WHERE Username = @Username";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Username", UserSession.Username);
 
