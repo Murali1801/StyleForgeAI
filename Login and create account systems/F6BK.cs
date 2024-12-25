@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.IO;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -8,8 +8,6 @@ using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 using System.Net.Http.Headers;
 using System.Diagnostics;
-using Newtonsoft.Json.Linq;
-using System.Configuration;
 
 namespace Login_and_create_account_systems
 {
@@ -18,35 +16,6 @@ namespace Login_and_create_account_systems
         private string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
         private string imgHippoApiUrl = "https://api.imghippo.com/v1/upload"; // Replace with actual ImgHippo API URL
         private string imgHippoApiKey = "191d6566b275d0609a6c3b38e36f8bc3";
-        public string imagePath;
-        public string imageUrl;
-        public string apiKey;
-
-        public string GetApiKey()
-        {
-            // Try to get the API key from environment variables
-            string apiKey = Environment.GetEnvironmentVariable("IMGHIPPO_API_KEY");
-            if (!string.IsNullOrEmpty(apiKey))
-            {
-                return apiKey;
-            }
-
-            // If not found in environment variables, try app config
-            apiKey = GetApiKeyFromAppConfig();
-            if (!string.IsNullOrEmpty(apiKey))
-            {
-                return apiKey;
-            }
-
-            MessageBox.Show("API key is not available. Please set it in the environment variables or app config.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return null;
-        }
-
-        public string GetApiKeyFromAppConfig()
-        {
-            apiKey = ConfigurationManager.AppSettings["IMGHIPPO_API_KEY"];
-            return apiKey;
-        }
 
         public Form6()
         {
@@ -119,8 +88,6 @@ namespace Login_and_create_account_systems
             this.Hide();
         }
 
-
-
         private async void btnBrowseFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -130,7 +97,7 @@ namespace Login_and_create_account_systems
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                imagePath = openFileDialog.FileName;
+                string imagePath = openFileDialog.FileName;
 
                 // Convert the selected image to byte[]
                 byte[] imageBytes = File.ReadAllBytes(imagePath);
@@ -138,18 +105,13 @@ namespace Login_and_create_account_systems
                 // Call the method to upload image to ImgHippo and save URL in UserImages table
                 /*await TestNetworkConnection();
                 await UploadToImgHippoAsync(imageBytes);
-                UploadImageToImgHippoAndSaveUrlToUserImages(imageBytes);*/
-                
-                
+                UploadImageToImgHippoAndSaveUrlToUserImages(imageBytes);
             }
         }
 
-        private async void btnShowPic_Click(object sender, EventArgs e)
-        { 
-            GetApiKey();
-            //await UploadImageToImgHippoAsync(imagePath,apiKey);
+        private void btnShowPic_Click(object sender, EventArgs e)
+        {
             LoadImageFromDatabase();
-            SaveImageUrlToUserImages(imageUrl);
             LoadImageUrlFromDatabase();
             CallApiAndDisplayOutput();
         }
@@ -176,7 +138,7 @@ namespace Login_and_create_account_systems
         // New method to upload image to ImgHippo and save URL to the UserImages table
 
 
-        /*private async Task TestNetworkConnection()
+        private async Task TestNetworkConnection()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -302,7 +264,7 @@ namespace Login_and_create_account_systems
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-        }*/
+        }
 
         private void SaveImageUrlToUserImages(string imageUrl)
         {
@@ -312,8 +274,8 @@ namespace Login_and_create_account_systems
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("INSERT INTO UserImages (UserID, ImageUrl) VALUES (@UserID, @ImageUrl)", conn);
-                    cmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO UserImages (Username, ImageUrl) VALUES (@Username, @ImageUrl)", conn);
+                    cmd.Parameters.AddWithValue("@Username", UserSession.Username);
                     cmd.Parameters.AddWithValue("@ImageUrl", imageUrl);
 
                     cmd.ExecuteNonQuery();
@@ -356,7 +318,6 @@ namespace Login_and_create_account_systems
                 }
             }
         }
-        
         /*private string GetImageUrlFromDatabase()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -376,34 +337,8 @@ namespace Login_and_create_account_systems
                     return null;
                 }
             }
-        }*/
+        }
 
-        /*private async Task<string> UploadImageToImgHippoAsync(string imagePath, string apiKey)
-        {
-            using (var client = new HttpClient())
-            {
-                using (var content = new MultipartFormDataContent())
-                {
-                    content.Add(new StringContent(apiKey), "api_key");
-                    content.Add(new StringContent("My Image"), "title");
-
-                    using (var fileStream = File.OpenRead(imagePath))
-                    {
-                        content.Add(new StreamContent(fileStream), "file", Path.GetFileName(imagePath));
-
-                        var response = await client.PostAsync("https://api.imghippo.com/v1/upload", content);
-                        response.EnsureSuccessStatusCode();
-
-                        var jsonResponse = await response.Content.ReadAsStringAsync();
-                        var json = JObject.Parse(jsonResponse);
-
-                        return json["data"]["url"].ToString(); // Adjust according to actual response format
-                    }
-                }
-            }
-        }*/
-
-        
         public string jsonresult;
         private async void CallApiAndDisplayOutput()
         {
@@ -597,7 +532,7 @@ namespace Login_and_create_account_systems
             return img;
         }
 
-        
+
         private void UploadProfileImage()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -613,4 +548,4 @@ namespace Login_and_create_account_systems
             }
         }
     }
-}
+}*/

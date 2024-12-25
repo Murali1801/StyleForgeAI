@@ -1,4 +1,5 @@
-﻿namespace Login_and_create_account_systems
+﻿
+namespace Login_and_create_account_systems
 {
     partial class Form6
     {
@@ -619,6 +620,8 @@
             ResumeLayout(false);
             PerformLayout();
         }
+
+        
 
         #endregion
 

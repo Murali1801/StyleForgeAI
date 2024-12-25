@@ -154,7 +154,9 @@ namespace Login_and_create_account_systems
         {
             if (img.PropertyIdList.Contains(0x0112)) // 0x0112 = PropertyTagOrientation
             {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 int orientation = img.GetPropertyItem(0x0112).Value[0];
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
                 switch (orientation)
                 {

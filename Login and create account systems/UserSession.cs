@@ -15,6 +15,8 @@ namespace Login_and_create_account_systems
         public static DateTime LastLogin { get; set; }
         public static DateTime CreatedAt { get; set; }
 
+        public static string ImageBase64 { get; set; }
+
         public static void ClearSession()
         {
             UserID = 0;
@@ -23,6 +25,7 @@ namespace Login_and_create_account_systems
             Email = null;
             LastLogin = DateTime.MinValue;
             CreatedAt = DateTime.MinValue;
+            ImageBase64 = null;
         }
     }
 }
