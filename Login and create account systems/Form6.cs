@@ -163,9 +163,10 @@ namespace Login_and_create_account_systems
                 {
                     // Save the image URL to the UserImages table
                     SaveImageUrlToUserImages(imageUrl);
+                    MessageBox.Show("Image Uploaded to Cloud Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Display the image URL and API JSON response
-                    MessageBox.Show($"Image URL: {imageUrl}\nImage Path: {destinationPath}", "Image Upload Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show($"Image URL: {imageUrl}\nImage Path: {destinationPath}", "Image Upload Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadImageFromDatabase();
                 }
                 else
@@ -191,7 +192,7 @@ namespace Login_and_create_account_systems
                     cmd.Parameters.AddWithValue("@FullBodyPic", destinationPath);
 
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Image path uploaded successfully!");
+                    //MessageBox.Show("Image path uploaded successfully!");
                 }
                 catch (Exception ex)
                 {
@@ -453,7 +454,7 @@ namespace Login_and_create_account_systems
                     cmd.Parameters.AddWithValue("@ImageUrl", imageUrl);
 
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Image URL uploaded successfully!");
+                    //MessageBox.Show("Image URL uploaded successfully!");
                 }
                 catch (Exception ex)
                 {
@@ -479,7 +480,7 @@ namespace Login_and_create_account_systems
                     {
                         // Load and display the image from the URL
                         //DisplayImageFromUrl(imageUrl);
-                        MessageBox.Show(imageUrl);
+                        //MessageBox.Show(imageUrl);
                     }
                     else
                     {
@@ -576,10 +577,11 @@ namespace Login_and_create_account_systems
                     HttpResponseMessage response = await client.PostAsync("https://styleforge-measurement-engine-api-v1-168486608630.asia-south1.run.app/measurement-engine-api\r\n", content);
                     string jsonResponse = await response.Content.ReadAsStringAsync();
                     jsonresult = jsonResponse;
-                    GlobalSettings.JSONresult = jsonResponse;
+                    //GlobalSettings.JSONresult = jsonResponse;
                     Debug.WriteLine(jsonresult);
                     // Display the output from the API in a messagebox in JSON format
-                    MessageBox.Show(jsonResponse, "API Response", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show(jsonResponse, "API Response", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
                 }
             }
             catch (Exception ex)
@@ -628,7 +630,7 @@ namespace Login_and_create_account_systems
                     cmd.Parameters.AddWithValue("@Username", UserSession.Username); // Assuming Username is stored in session
 
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Image uploaded successfully!");
+                    //MessageBox.Show("Image uploaded successfully!");
                 }
                 catch (Exception ex)
                 {
@@ -651,7 +653,7 @@ namespace Login_and_create_account_systems
                     cmd.Parameters.AddWithValue("@ProfilePicture", imageBytes);
 
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Profile picture uploaded successfully!");
+                    //MessageBox.Show("Profile picture uploaded successfully!");
                 }
                 catch (Exception ex)
                 {
@@ -693,7 +695,7 @@ namespace Login_and_create_account_systems
                     cmd.Parameters.AddWithValue("@FullBodyPic", imageBytes);
 
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Image uploaded successfully!");
+                    //MessageBox.Show("Image uploaded successfully!");
                 }
                 catch (Exception ex)
                 {
@@ -710,7 +712,9 @@ namespace Login_and_create_account_systems
             {
                 using (MemoryStream ms = new MemoryStream(imageBytes))
                 {
-                    profile.Image = Image.FromStream(ms);
+                    Image profileimg = Image.FromStream(ms);
+                    profileimg = CorrectImageOrientation(profileimg);
+                    profile.Image = profileimg;
                 }
             }
             else
