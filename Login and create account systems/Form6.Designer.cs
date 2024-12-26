@@ -393,7 +393,7 @@ namespace Login_and_create_account_systems
             btnProfile.Name = "btnProfile";
             btnProfile.Size = new Size(367, 70);
             btnProfile.TabIndex = 47;
-            btnProfile.Text = "Browse File";
+            btnProfile.Text = "Upload Profile Photo";
             btnProfile.UseVisualStyleBackColor = false;
             btnProfile.Click += btnProfile_Click;
             // 
@@ -432,7 +432,7 @@ namespace Login_and_create_account_systems
             btnShowPic.Name = "btnShowPic";
             btnShowPic.Size = new Size(398, 70);
             btnShowPic.TabIndex = 5;
-            btnShowPic.Text = "Show";
+            btnShowPic.Text = "Extract Measurements";
             btnShowPic.UseVisualStyleBackColor = false;
             btnShowPic.Click += btnShowPic_Click;
             // 
@@ -483,7 +483,7 @@ namespace Login_and_create_account_systems
             btnBrowseFile.Name = "btnBrowseFile";
             btnBrowseFile.Size = new Size(367, 70);
             btnBrowseFile.TabIndex = 46;
-            btnBrowseFile.Text = "Browse File";
+            btnBrowseFile.Text = "Upload Full Body Photo";
             btnBrowseFile.UseVisualStyleBackColor = false;
             btnBrowseFile.Click += btnBrowseFile_Click;
             // 
@@ -621,7 +621,7 @@ namespace Login_and_create_account_systems
             PerformLayout();
         }
 
-        
+
 
         #endregion
 

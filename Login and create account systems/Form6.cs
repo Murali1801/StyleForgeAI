@@ -166,6 +166,7 @@ namespace Login_and_create_account_systems
 
                     // Display the image URL and API JSON response
                     MessageBox.Show($"Image URL: {imageUrl}\nImage Path: {destinationPath}", "Image Upload Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadImageFromDatabase();
                 }
                 else
                 {
@@ -230,13 +231,13 @@ namespace Login_and_create_account_systems
 
         private async void btnShowPic_Click(object sender, EventArgs e)
         {
-            GetApiKey();
-            LoadImageFromDatabase();
+            //GetApiKey();
+            //LoadImageFromDatabase();
             //await UploadImageToImgHippoAsync(imagePath,apiKey);
             //LoadImageFromPath(destinationPath);
             //SaveImageUrlToUserImages(imageUrl);
-            LoadImageUrlFromDatabase();
-            CallApiAndDisplayOutput();
+            //LoadImageUrlFromDatabase();
+            //CallApiAndDisplayOutput();
         }
 
         private void btnProfile_Click(object sender, EventArgs e)
@@ -255,6 +256,7 @@ namespace Login_and_create_account_systems
 
                 // Call the method to save it to the database
                 SaveProfileToDatabase(imageBytes);
+                LoadProfileFromDatabase();
             }
         }
 
