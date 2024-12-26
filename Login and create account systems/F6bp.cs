@@ -1,4 +1,4 @@
-﻿
+﻿/*
 using System;
 using System.IO;
 using System.Data.SqlClient;
@@ -200,7 +200,34 @@ namespace Login_and_create_account_systems
                 }
             }
         }
+        /*private void LoadImageFromPath(string imagePath)
+        {
+            try
+            {
+                // Check if the image path is valid
+                if (!string.IsNullOrEmpty(destinationPath) && File.Exists(destinationPath))
+                {
+                    // Load the image from the specified path
+                    Image image = Image.FromFile(destinationPath);
 
+                    // Set the image to the PictureBox
+                    image = CorrectImageOrientation(image);
+                    pictureBox4.Image = image;
+
+                    // Optionally, you can adjust the PictureBox size mode if needed
+                    pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage; // or other modes like AutoSize, CenterImage, etc.
+                }
+                else
+                {
+                    MessageBox.Show("The specified image path is invalid or the file does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that occur while loading the image
+                MessageBox.Show($"An error occurred while loading the image: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private async void btnShowPic_Click(object sender, EventArgs e)
         {
@@ -233,6 +260,136 @@ namespace Login_and_create_account_systems
             }
         }
 
+        // New method to upload image to ImgHippo and save URL to the UserImages table
+
+
+        /*private async Task TestNetworkConnection()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync("https://www.google.com");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Network connection is working.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Network connection failed.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error testing network connection: {ex.Message}");
+                }
+            }
+        }
+
+        /*private async Task<string> UploadToImgHippoAsync(byte[] imageBytes)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var content = new MultipartFormDataContent();
+                var imageContent = new ByteArrayContent(imageBytes);
+                content.Add(imageContent, "file", "uploaded_image");
+
+                // Include the API key in the request headers
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", imgHippoApiKey);
+
+                try
+                {
+                    HttpResponseMessage response = await client.PostAsync(imgHippoApiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Assume that the response contains a JSON with the image URL
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                        // Example: {"url": "https://img.example.com/image.jpg"}
+                        var responseData = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                        return responseData.url;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error while uploading image: " + ex.Message);
+                    return null;
+                }
+            }
+        }
+
+        private async Task<string> UploadToImgHippoAsync(byte[] imageBytes)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var content = new MultipartFormDataContent();
+                var imageContent = new ByteArrayContent(imageBytes);
+                imageContent.Headers.ContentType = MediaTypeHeaderValue.Parse("image/jpeg");
+                content.Add(imageContent, "file", "uploaded_image.jpg");
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", imgHippoApiKey);
+
+                try
+                {
+                    HttpResponseMessage response = await client.PostAsync(imgHippoApiUrl, content);
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    // Log response for troubleshooting
+                    LogResponse(response, jsonResponse);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseData = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(jsonResponse);
+                        return responseData.url;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Error: {response.StatusCode} - {jsonResponse}");
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error while uploading image: {ex.Message}");
+                    return null;
+                }
+            }
+        }
+
+        private void LogResponse(HttpResponseMessage response, string jsonResponse)
+        {
+            string logMessage = $"Status Code: {response.StatusCode}\nResponse: {jsonResponse}";
+            File.AppendAllText("api_log.txt", logMessage);
+        }
+
+        private async void UploadImageToImgHippoAndSaveUrlToUserImages(byte[] imageBytes)
+        {
+            try
+            {
+                // Upload the image to ImgHippo API and get the URL
+                string imageUrl = await UploadToImgHippoAsync(imageBytes);
+                await TestNetworkConnection();
+                MessageBox.Show(imageUrl);
+
+                if (imageUrl != null)
+                {
+                    // Save the image URL in the UserImages table (without modifying existing methods)
+                    SaveImageUrlToUserImages(imageUrl);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to upload image.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
         private static async Task<string> UploadImageToImgHippoAsync(string imagePath, string apiKey)
         {
             using (var client = new HttpClient())
@@ -254,6 +411,30 @@ namespace Login_and_create_account_systems
 
                         return json["data"]["url"].ToString(); // Adjust according to actual response format
                     }
+                }
+            }
+        }
+
+
+
+        private void SaveImageUrlToUserImages(string imageUrl)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("INSERT INTO UserImages (UserID, ImageUrl) VALUES (@UserID, @ImageUrl)", conn);
+                    cmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+                    cmd.Parameters.AddWithValue("@ImageUrl", imageUrl);
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Image URL uploaded successfully!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
                 }
             }
         }
@@ -281,7 +462,7 @@ namespace Login_and_create_account_systems
             }
         }
 
-        private string LoadImageUrlFromDatabase()
+        private void LoadImageUrlFromDatabase()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -310,28 +491,76 @@ namespace Login_and_create_account_systems
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
-           return imageUrl;
+            //return imageUrl;
         }
 
-      
+        private string GetImageUrlFromDatabase()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT ImageUrl FROM UserImages WHERE UserID = @UserID", conn);
+                    cmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+
+                    return cmd.ExecuteScalar() as string;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error retrieving image URL: " + ex.Message);
+                    return null;
+                }
+            }
+        }*/
+
+        /*private async Task<string> UploadImageToImgHippoAsync(string imagePath, string apiKey)
+        {
+            using (var client = new HttpClient())
+            {
+                using (var content = new MultipartFormDataContent())
+                {
+                    content.Add(new StringContent(apiKey), "api_key");
+                    content.Add(new StringContent("My Image"), "title");
+
+                    using (var fileStream = File.OpenRead(imagePath))
+                    {
+                        content.Add(new StreamContent(fileStream), "file", Path.GetFileName(imagePath));
+
+                        var response = await client.PostAsync("https://api.imghippo.com/v1/upload", content);
+                        response.EnsureSuccessStatusCode();
+
+                        var jsonResponse = await response.Content.ReadAsStringAsync();
+                        var json = JObject.Parse(jsonResponse);
+
+                        return json["data"]["url"].ToString(); // Adjust according to actual response format
+                    }
+                }
+            }
+        }
 
 
         public string jsonresult;
-        private async void CallMeasurementEngineApi()
+        private async void CallApiAndDisplayOutput()
         {
             try
             {
-                //int curruserid = UserSession.UserID;
-
-                string fetchedImageUrl = LoadImageUrlFromDatabase();
-
+                // Retrieve the image URL from the database
+                LoadImageUrlFromDatabase();
 
                 string apikey = "fw_3Zm3kcX4SQ3d5GKexgtRdrvW";
+
+                if (string.IsNullOrEmpty(imageUrl))
+                {
+                    MessageBox.Show("No image URL found for this user.");
+                    return;
+                }
 
                 // Prepare the JSON payload correctly
                 var payload = new
                 {
-                    image_url = fetchedImageUrl, // Ensure this key matches what the API expects (image_url should be replaced by url if needed)
+                    image_url = imageUrl, // Ensure this key matches what the API expects (image_url should be replaced by url if needed)
                     api_key = apikey
                 };
 
@@ -350,7 +579,7 @@ namespace Login_and_create_account_systems
                     //GlobalSettings.JSONresult = jsonResponse;
                     Debug.WriteLine(jsonresult);
                     // Display the output from the API in a messagebox in JSON format
-                    MessageBox.Show(jsonResponse, "Measurements Extracted! See Dashboard for Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show(jsonResponse, "API Response", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
             }
@@ -360,6 +589,27 @@ namespace Login_and_create_account_systems
             }
         }
 
+
+
+        /*private async void DisplayImageFromUrl(string imageUrl)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    byte[] imageBytes = await client.GetByteArrayAsync(imageUrl);
+                    using (MemoryStream ms = new MemoryStream(imageBytes))
+                    {
+                        Image image = Image.FromStream(ms);
+                        pictureBox4.Image = image; // Replace pictureBox4 with your PictureBox control
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading image from URL: " + ex.Message);
+            }
+        }
 
 
         private void SaveImageToDatabase(byte[] imageBytes)
@@ -534,7 +784,9 @@ namespace Login_and_create_account_systems
 
         private void button6_Click(object sender, EventArgs e)
         {
-            CallMeasurementEngineApi();
+            GetApiKey();
+            load
+            CallApiAndDisplayOutput();
         }
     }
-}
+}*/

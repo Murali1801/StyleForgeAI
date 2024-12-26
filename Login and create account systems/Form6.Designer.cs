@@ -56,7 +56,6 @@ namespace Login_and_create_account_systems
             btnProfile = new Button();
             label9 = new Label();
             panel6 = new Panel();
-            btnShowPic = new Button();
             label8 = new Label();
             pictureBox4 = new PictureBox();
             panel_changepassword = new Panel();
@@ -69,6 +68,7 @@ namespace Login_and_create_account_systems
             profile = new PictureBox();
             label2 = new Label();
             label3 = new Label();
+            button6 = new Button();
             panel_head.SuspendLayout();
             panel2.SuspendLayout();
             panel_hidden.SuspendLayout();
@@ -411,30 +411,13 @@ namespace Login_and_create_account_systems
             // panel6
             // 
             panel6.BackColor = Color.White;
-            panel6.Controls.Add(btnShowPic);
+            panel6.Controls.Add(button6);
             panel6.Controls.Add(label8);
             panel6.Controls.Add(pictureBox4);
             panel6.Location = new Point(684, 120);
             panel6.Name = "panel6";
             panel6.Size = new Size(451, 668);
             panel6.TabIndex = 7;
-            // 
-            // btnShowPic
-            // 
-            btnShowPic.BackColor = Color.FromArgb(126, 34, 206);
-            btnShowPic.Cursor = Cursors.Hand;
-            btnShowPic.FlatAppearance.BorderSize = 0;
-            btnShowPic.FlatStyle = FlatStyle.Flat;
-            btnShowPic.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnShowPic.ForeColor = Color.White;
-            btnShowPic.Location = new Point(32, 585);
-            btnShowPic.Margin = new Padding(0);
-            btnShowPic.Name = "btnShowPic";
-            btnShowPic.Size = new Size(398, 70);
-            btnShowPic.TabIndex = 5;
-            btnShowPic.Text = "Extract Measurements";
-            btnShowPic.UseVisualStyleBackColor = false;
-            btnShowPic.Click += btnShowPic_Click;
             // 
             // label8
             // 
@@ -578,6 +561,23 @@ namespace Login_and_create_account_systems
             label3.TabIndex = 40;
             label3.Text = "StyleForgeAI";
             // 
+            // button6
+            // 
+            button6.BackColor = Color.White;
+            button6.Cursor = Cursors.Hand;
+            button6.FlatAppearance.BorderSize = 0;
+            button6.FlatStyle = FlatStyle.Flat;
+            button6.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button6.ForeColor = Color.White;
+            button6.Image = (Image)resources.GetObject("button6.Image");
+            button6.Location = new Point(52, 585);
+            button6.Name = "button6";
+            button6.Size = new Size(367, 70);
+            button6.TabIndex = 47;
+            button6.Text = "Extract Measurements";
+            button6.UseVisualStyleBackColor = false;
+            button6.Click += button6_Click;
+            // 
             // Form6
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -659,10 +659,10 @@ namespace Login_and_create_account_systems
         private PictureBox pictureBox4;
         private Button btnBrowseFile;
         private Panel panel6;
-        private Button btnShowPic;
         private Label label8;
         private Panel panel7;
         private Label label9;
         private PictureBox profile;
+        private Button button6;
     }
 }
