@@ -17,6 +17,14 @@ namespace Login_and_create_account_systems
 
         public static string ImageBase64 { get; set; }
 
+        public static string SubjectHeight { get; set; }
+        public static string SubjectShoulder { get; set; }
+        public static string SubjectChest { get; set; }
+        public static string SubjectWaist { get; set; }
+        public static string SubjectHip { get; set; }
+        public static string SubjectArm { get; set; }
+        public static string WaistToHipRatio { get; set; }
+
         public static void ClearSession()
         {
             UserID = 0;
@@ -26,6 +34,13 @@ namespace Login_and_create_account_systems
             LastLogin = DateTime.MinValue;
             CreatedAt = DateTime.MinValue;
             ImageBase64 = null;
+            SubjectHeight = null;
+            SubjectShoulder = null;
+            SubjectChest = null;
+            SubjectWaist = null;
+            SubjectHip = null;
+            SubjectArm = null;
+            WaistToHipRatio = null;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Login_and_create_account_systems
 {
     public partial class Form8 : Form
     {
+        private string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
         public Form8()
         {
             InitializeComponent();
@@ -97,38 +98,72 @@ namespace Login_and_create_account_systems
             this.Hide();
         }
 
+        // Corrects the image orientation based on EXIF data
+        private Image CorrectImageOrientation(Image img)
+        {
+            if (img.PropertyIdList.Contains(0x0112)) // 0x0112 = PropertyTagOrientation
+            {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                int orientation = img.GetPropertyItem(0x0112).Value[0];
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+
+                switch (orientation)
+                {
+                    case 3: // Rotate 180
+                        img.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                        break;
+                    case 6: // Rotate 90 clockwise
+                        img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                        break;
+                    case 8: // Rotate 90 counterclockwise
+                        img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                        break;
+                }
+
+                // Remove the orientation property to prevent future issues
+                img.RemovePropertyItem(0x0112);
+            }
+
+            return img;
+        }
+
+
         private void LoadProfileFromDatabase()
         {
-            string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
+            byte[] imageBytes = ExecuteDatabaseQuery("SELECT ProfilePicture FROM Users WHERE Username = @Username");
 
+            if (imageBytes != null)
+            {
+                using (MemoryStream ms = new MemoryStream(imageBytes))
+                {
+                    Image profileimg = Image.FromStream(ms);
+                    profileimg = CorrectImageOrientation(profileimg);
+                    profile.Image = profileimg;
+                }
+            }
+            else
+            {
+                MessageBox.Show("No profile picture found.");
+            }
+        }
+
+
+        private byte[] ExecuteDatabaseQuery(string query)
+        {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
-
-                    string query = "SELECT ProfilePicture FROM Users WHERE Username = @Username";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Username", UserSession.Username);
 
-                    byte[] imageBytes = (byte[])cmd.ExecuteScalar();
-
-                    if (imageBytes != null)
-                    {
-                        // Convert byte[] to Image and display in PictureBox
-                        using (MemoryStream ms = new MemoryStream(imageBytes))
-                        {
-                            profile.Image = Image.FromStream(ms);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No profile picture found.");
-                    }
+                    return cmd.ExecuteScalar() as byte[];
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message);
+                    return null;
                 }
             }
         }

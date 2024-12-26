@@ -349,8 +349,19 @@ namespace Login_and_create_account_systems
                     jsonresult = jsonResponse;
                     //GlobalSettings.JSONresult = jsonResponse;
                     Debug.WriteLine(jsonresult);
-                    // Display the output from the API in a messagebox in JSON format
-                    MessageBox.Show(jsonResponse, "Measurements Extracted! See Dashboard for Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    //SQl Query
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand("UPDATE Users SET UserMeasurments = @UserMeasurments WHERE UserID = @UserID", conn);
+                        cmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+                        cmd.Parameters.AddWithValue("@UserMeasurments", jsonresult);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                        MessageBox.Show(jsonResponse, "Measurements Extracted! See Dashboard for Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
             }
