@@ -9,6 +9,7 @@ namespace Login_and_create_account_systems
     public static class GlobalSettings
     {
         public static string DestinationPath { get; set; }
+        public static string JSONresult { get; set; }
     }
 
 }

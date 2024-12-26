@@ -11,6 +11,7 @@ using System.Net.Http.Headers;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
+using System.Drawing.Text;
 
 namespace Login_and_create_account_systems
 {
@@ -546,6 +547,7 @@ namespace Login_and_create_account_systems
                 // Retrieve the image URL from the database
                 LoadImageUrlFromDatabase();
                 
+                string apikey = "fw_3Zm3kcX4SQ3d5GKexgtRdrvW";
 
                 if (string.IsNullOrEmpty(imageUrl))
                 {
@@ -556,7 +558,8 @@ namespace Login_and_create_account_systems
                 // Prepare the JSON payload correctly
                 var payload = new
                 {
-                    image_url = imageUrl // Ensure this key matches what the API expects (image_url should be replaced by url if needed)
+                    image_url = imageUrl, // Ensure this key matches what the API expects (image_url should be replaced by url if needed)
+                    api_key = apikey
                 };
 
                 string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
@@ -568,9 +571,10 @@ namespace Login_and_create_account_systems
 
                     var content = new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage response = await client.PostAsync("https://styleforge-measurement-engine-api-168486608630.asia-south1.run.app/measurement-engine-api", content);
+                    HttpResponseMessage response = await client.PostAsync("https://styleforge-measurement-engine-api-v1-168486608630.asia-south1.run.app/measurement-engine-api\r\n", content);
                     string jsonResponse = await response.Content.ReadAsStringAsync();
                     jsonresult = jsonResponse;
+                    GlobalSettings.JSONresult = jsonResponse;
                     Debug.WriteLine(jsonresult);
                     // Display the output from the API in a messagebox in JSON format
                     MessageBox.Show(jsonResponse, "API Response", MessageBoxButtons.OK, MessageBoxIcon.Information);
