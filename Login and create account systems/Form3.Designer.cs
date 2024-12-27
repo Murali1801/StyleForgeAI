@@ -87,7 +87,6 @@
             button11 = new Button();
             button10 = new Button();
             button9 = new Button();
-            btnFetchMeasurements = new Button();
             label8 = new Label();
             pictureBox4 = new PictureBox();
             panel4 = new Panel();
@@ -774,7 +773,6 @@
             panel6.Controls.Add(button11);
             panel6.Controls.Add(button10);
             panel6.Controls.Add(button9);
-            panel6.Controls.Add(btnFetchMeasurements);
             panel6.Controls.Add(label8);
             panel6.Controls.Add(pictureBox4);
             panel6.Location = new Point(689, 175);
@@ -791,7 +789,7 @@
             button11.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button11.ForeColor = Color.White;
             button11.Image = (Image)resources.GetObject("button11.Image");
-            button11.Location = new Point(23, 822);
+            button11.Location = new Point(23, 740);
             button11.Name = "button11";
             button11.Size = new Size(380, 90);
             button11.TabIndex = 51;
@@ -807,7 +805,7 @@
             button10.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button10.ForeColor = Color.White;
             button10.Image = (Image)resources.GetObject("button10.Image");
-            button10.Location = new Point(23, 718);
+            button10.Location = new Point(23, 635);
             button10.Name = "button10";
             button10.Size = new Size(380, 90);
             button10.TabIndex = 50;
@@ -823,30 +821,13 @@
             button9.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button9.ForeColor = Color.White;
             button9.Image = (Image)resources.GetObject("button9.Image");
-            button9.Location = new Point(23, 633);
+            button9.Location = new Point(23, 551);
             button9.Name = "button9";
             button9.Size = new Size(380, 70);
             button9.TabIndex = 49;
             button9.Text = "Show Recommendations";
             button9.UseVisualStyleBackColor = false;
             button9.Click += button9_Click;
-            // 
-            // btnFetchMeasurements
-            // 
-            btnFetchMeasurements.BackColor = Color.White;
-            btnFetchMeasurements.Cursor = Cursors.Hand;
-            btnFetchMeasurements.FlatAppearance.BorderSize = 0;
-            btnFetchMeasurements.FlatStyle = FlatStyle.Flat;
-            btnFetchMeasurements.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnFetchMeasurements.ForeColor = Color.White;
-            btnFetchMeasurements.Image = (Image)resources.GetObject("btnFetchMeasurements.Image");
-            btnFetchMeasurements.Location = new Point(23, 547);
-            btnFetchMeasurements.Name = "btnFetchMeasurements";
-            btnFetchMeasurements.Size = new Size(380, 70);
-            btnFetchMeasurements.TabIndex = 48;
-            btnFetchMeasurements.Text = "Fetch Measurements";
-            btnFetchMeasurements.UseVisualStyleBackColor = false;
-            btnFetchMeasurements.Click += btnFetchMeasurements_Click;
             // 
             // label8
             // 
@@ -993,7 +974,6 @@
         private Button button7;
         private Button button6;
         private Button button9;
-        private Button btnFetchMeasurements;
         private Button button11;
         private Button button10;
         private FlowLayoutPanel flowLayoutPanel2;
