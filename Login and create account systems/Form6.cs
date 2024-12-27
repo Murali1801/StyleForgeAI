@@ -347,7 +347,7 @@ namespace Login_and_create_account_systems
                     HttpResponseMessage response = await client.PostAsync("https://styleforge-measurement-engine-api-v1-168486608630.asia-south1.run.app/measurement-engine-api\r\n", content);
                     string jsonResponse = await response.Content.ReadAsStringAsync();
                     jsonresult = jsonResponse;
-                    //GlobalSettings.JSONresult = jsonResponse;
+                    GlobalSettings.JSONresult = jsonResponse;
                     Debug.WriteLine(jsonresult);
 
                     //SQl Query

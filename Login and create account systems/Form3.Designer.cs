@@ -829,6 +829,7 @@
             button9.TabIndex = 49;
             button9.Text = "Show Recommendations";
             button9.UseVisualStyleBackColor = false;
+            button9.Click += button9_Click;
             // 
             // btnFetchMeasurements
             // 

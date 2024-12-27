@@ -487,6 +487,69 @@ namespace Login_and_create_account_systems
 
         }
 
+        private void button9_Click(object sender, EventArgs e)
+        {
+            CallRSEQApi();
+        }
 
+        
+        private async void CallRSEQApi()
+        {
+            try
+            {
+                //int curruserid = UserSession.UserID;
+
+                //string fetchedImageUrl = LoadImageUrlFromDatabase();
+
+
+                string apikey = "fw_3Zm3kcX4SQ3d5GKexgtRdrvW";
+                string jsonrseq = "| **Height Range** | **Tops** | **Bottoms** | **Shoes** | **Accessories** | **Color Sense** | |------------------|------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| | **160–167 cm** | - Fitted t-shirts or polo shirts<br>- Vertical stripes or small patterns<br>- Waist-length jackets | - Slim-fit jeans or chinos<br>- Cropped or ankle-length trousers<br>- Darker colors for elongation | - Low-profile sneakers<br>- Chelsea boots with slight heels<br>- Minimalist designs | - Slim belts<br>- Medium-sized bags<br>- Sleek caps or beanies | - Monochrome outfits<br>- Contrast light tops with dark bottoms for balance | | **167–174 cm** | - Slim-fit or tailored shirts<br>- V-neck sweaters<br>- Layered outfits with proportions | - Tapered or straight-leg pants<br>- Mid-rise trousers<br>- Neutral or solid colors | - Low or mid-profile sneakers<br>- Desert boots or loafers | - Leather belts<br>- Medium-to-small backpacks<br>- Simple watches or bracelets | - Earth tones or muted palettes<br>- Incorporate subtle patterns for variety | | **174–181 cm** | - Casual t-shirts and shirts with added layering<br>- Neutral colors or subtle patterns<br>- Slim jackets | - Straight-leg or slightly relaxed pants<br>- Dark or earthy tones | - Sneakers, loafers, or boots<br>- Avoid overly flat or exaggerated platforms | - Medium-width belts<br>- Messenger bags or crossbody bags<br>- Simple caps | - Neutral tones with bold accent pieces<br>- Dark tops for a slimming effect | | **181–188 cm** | - Slim-fit button-ups<br>- Long-sleeve t-shirts<br>- Tailored blazers for casual events | - Slightly relaxed fit pants<br>- Avoid overly slim styles for balance | - Casual leather sneakers<br>- Brogue boots for added style | - Larger backpacks or shoulder bags<br>- Statement watches | - Classic tones like navy, gray, or white<br>- Use vertical patterns to emphasize height | | **188–195 cm** | - Tailored shirts or turtlenecks<br>- Longline t-shirts or sweaters<br>- Coats ending mid-thigh for balance | - Straight-cut pants<br>- Avoid cropped pants unless paired with boots | - High-top sneakers or boots<br>- Classic leather shoes | - Structured bags<br>- Wider belts for balance<br>- Subtle scarves or accessories | - Deep tones like burgundy, forest green, or charcoal<br>- Avoid overly busy patterns for balance |";
+                string jsonbody = GlobalSettings.JSONresult;
+
+                // Prepare the JSON payload correctly
+                var payload = new
+                {
+                    // Ensure this key matches what the API expects (image_url should be replaced by url if needed)
+                    api_key = apikey,
+                    recommendation_table = jsonrseq,
+                    body_analysis_table = jsonbody
+                };
+
+                string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
+
+                // Send the request to the API
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var content = new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync("https://styleforge-rseq-api-v2-168486608630.asia-south1.run.app/rseq-api-v2\r\n", content);
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+                    //jsonresult = jsonResponse;
+                    //GlobalSettings.JSONresult = jsonResponse;
+                    Debug.WriteLine(jsonResponse);
+                    //MessageBox.Show(jsonResponse);
+
+                    //SQl Query
+                    /*using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand("UPDATE Users SET UserMeasurments = @UserMeasurments WHERE UserID = @UserID", conn);
+                        cmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+                        cmd.Parameters.AddWithValue("@UserMeasurments", jsonresult);
+
+                        cmd.ExecuteNonQuery();
+                    }*/
+
+                    MessageBox.Show(jsonResponse, "RSEQ Extracted! See Dashboard for Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error calling API: " + ex.Message);
+            }
+        }
     }
 }
