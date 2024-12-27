@@ -80,9 +80,8 @@
             panel5 = new Panel();
             label7 = new Label();
             panel16 = new Panel();
-            label_recomm = new Label();
-            button7 = new Button();
-            button6 = new Button();
+            flowLayoutPanel3 = new FlowLayoutPanel();
+            label_txtrecomm = new Label();
             panel6 = new Panel();
             button11 = new Button();
             button10 = new Button();
@@ -118,6 +117,7 @@
             panel9.SuspendLayout();
             panel5.SuspendLayout();
             panel16.SuspendLayout();
+            flowLayoutPanel3.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panel4.SuspendLayout();
@@ -388,19 +388,17 @@
             // panel_recom
             // 
             panel_recom.AutoScroll = true;
-            panel_recom.AutoScrollMinSize = new Size(0, 5500);
+            panel_recom.AutoScrollMinSize = new Size(0, 25000);
             panel_recom.AutoSize = true;
             panel_recom.Controls.Add(flowLayoutPanel2);
-            panel_recom.Controls.Add(button7);
-            panel_recom.Controls.Add(button6);
             panel_recom.Controls.Add(panel6);
             panel_recom.Controls.Add(panel4);
             panel_recom.Controls.Add(panel_head);
             panel_recom.Location = new Point(250, 0);
             panel_recom.Margin = new Padding(0);
-            panel_recom.MinimumSize = new Size(1150, 3500);
+            panel_recom.MinimumSize = new Size(1150, 5500);
             panel_recom.Name = "panel_recom";
-            panel_recom.Size = new Size(1150, 3500);
+            panel_recom.Size = new Size(1150, 5500);
             panel_recom.TabIndex = 9;
             // 
             // flowLayoutPanel2
@@ -414,7 +412,7 @@
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel2.Location = new Point(15, 175);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(653, 1692);
+            flowLayoutPanel2.Size = new Size(653, 4131);
             flowLayoutPanel2.TabIndex = 49;
             // 
             // label3
@@ -717,55 +715,35 @@
             // panel16
             // 
             panel16.BackColor = SystemColors.Control;
-            panel16.Controls.Add(label_recomm);
+            panel16.Controls.Add(flowLayoutPanel3);
             panel16.Location = new Point(20, 711);
             panel16.Margin = new Padding(20, 0, 20, 10);
             panel16.Name = "panel16";
-            panel16.Size = new Size(606, 932);
+            panel16.Size = new Size(606, 2657);
             panel16.TabIndex = 53;
             // 
-            // label_recomm
+            // flowLayoutPanel3
             // 
-            label_recomm.AutoSize = true;
-            label_recomm.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_recomm.ForeColor = Color.FromArgb(126, 34, 206);
-            label_recomm.Location = new Point(40, 29);
-            label_recomm.Name = "label_recomm";
-            label_recomm.Size = new Size(213, 31);
-            label_recomm.TabIndex = 45;
-            label_recomm.Text = "Recommendations";
-            label_recomm.UseMnemonic = false;
+            flowLayoutPanel3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            flowLayoutPanel3.BackColor = Color.White;
+            flowLayoutPanel3.Controls.Add(label_txtrecomm);
+            flowLayoutPanel3.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel3.Location = new Point(22, 17);
+            flowLayoutPanel3.Name = "flowLayoutPanel3";
+            flowLayoutPanel3.Size = new Size(558, 2624);
+            flowLayoutPanel3.TabIndex = 0;
             // 
-            // button7
+            // label_txtrecomm
             // 
-            button7.BackColor = Color.White;
-            button7.Cursor = Cursors.Hand;
-            button7.FlatAppearance.BorderSize = 0;
-            button7.FlatStyle = FlatStyle.Flat;
-            button7.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button7.ForeColor = Color.White;
-            button7.Image = (Image)resources.GetObject("button7.Image");
-            button7.Location = new Point(381, 2782);
-            button7.Name = "button7";
-            button7.Size = new Size(367, 70);
-            button7.TabIndex = 48;
-            button7.Text = "Extract Measurements";
-            button7.UseVisualStyleBackColor = false;
-            // 
-            // button6
-            // 
-            button6.BackColor = Color.FromArgb(126, 34, 206);
-            button6.FlatAppearance.BorderSize = 0;
-            button6.FlatStyle = FlatStyle.Flat;
-            button6.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button6.ForeColor = Color.White;
-            button6.Location = new Point(15, 2638);
-            button6.Margin = new Padding(0);
-            button6.Name = "button6";
-            button6.Size = new Size(652, 70);
-            button6.TabIndex = 5;
-            button6.Text = "Click To See The Magic";
-            button6.UseVisualStyleBackColor = false;
+            label_txtrecomm.AutoSize = true;
+            label_txtrecomm.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label_txtrecomm.ForeColor = Color.FromArgb(126, 34, 206);
+            label_txtrecomm.Location = new Point(20, 20);
+            label_txtrecomm.Margin = new Padding(20);
+            label_txtrecomm.Name = "label_txtrecomm";
+            label_txtrecomm.Size = new Size(264, 31);
+            label_txtrecomm.TabIndex = 47;
+            label_txtrecomm.Text = "Text Recommendations";
             // 
             // panel6
             // 
@@ -811,6 +789,7 @@
             button10.TabIndex = 50;
             button10.Text = "Show Recommended Products";
             button10.UseVisualStyleBackColor = false;
+            button10.Click += button10_Click;
             // 
             // button9
             // 
@@ -931,7 +910,8 @@
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             panel16.ResumeLayout(false);
-            panel16.PerformLayout();
+            flowLayoutPanel3.ResumeLayout(false);
+            flowLayoutPanel3.PerformLayout();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
@@ -971,8 +951,6 @@
         private Panel panel6;
         private Label label8;
         private PictureBox pictureBox4;
-        private Button button7;
-        private Button button6;
         private Button button9;
         private Button button11;
         private Button button10;
@@ -1007,6 +985,7 @@
         private Label label15;
         private Label label_waist;
         private Panel panel16;
-        private Label label_recomm;
+        private FlowLayoutPanel flowLayoutPanel3;
+        private Label label_txtrecomm;
     }
 }
