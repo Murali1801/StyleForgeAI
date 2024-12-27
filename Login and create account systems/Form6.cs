@@ -12,6 +12,7 @@ using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 using System.Drawing.Text;
+using System.Text;
 
 namespace Login_and_create_account_systems
 {
@@ -313,25 +314,78 @@ namespace Login_and_create_account_systems
            return imageUrl;
         }
 
-      
 
+
+
+        //public string jsonresult;
+        //private async void CallMeasurementEngineApi()
+        //{
+        //    try
+        //    {
+        //        //int curruserid = UserSession.UserID;
+
+        //        string fetchedImageUrl = LoadImageUrlFromDatabase();
+
+
+        //        string apikey = "fw_3Zm3kcX4SQ3d5GKexgtRdrvW";
+
+        //        // Prepare the JSON payload correctly
+        //        var payload = new
+        //        {
+        //            image_url = fetchedImageUrl, // Ensure this key matches what the API expects (image_url should be replaced by url if needed)
+        //            api_key = apikey
+        //        };
+
+        //        string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
+
+        //        // Send the request to the API
+        //        using (HttpClient client = new HttpClient())
+        //        {
+        //            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        //            var content = new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json");
+
+        //            HttpResponseMessage response = await client.PostAsync("https://styleforge-measurement-engine-api-v1-168486608630.asia-south1.run.app/measurement-engine-api\r\n", content);
+        //            string jsonResponse = await response.Content.ReadAsStringAsync();
+        //            jsonresult = jsonResponse;
+        //            GlobalSettings.JSONresult = jsonResponse;
+        //            Debug.WriteLine(jsonresult);
+
+        //            //SQl Query
+        //            using (SqlConnection conn = new SqlConnection(connectionString))
+        //            {
+        //                conn.Open();
+        //                SqlCommand cmd = new SqlCommand("UPDATE Users SET UserMeasurments = @UserMeasurments WHERE UserID = @UserID", conn);
+        //                cmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+        //                cmd.Parameters.AddWithValue("@UserMeasurments", jsonresult);
+
+        //                cmd.ExecuteNonQuery();
+        //            }
+
+        //                MessageBox.Show(jsonResponse, "Measurements Extracted! See Dashboard for Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error calling API: " + ex.Message);
+        //    }
+        //}
 
         public string jsonresult;
         private async void CallMeasurementEngineApi()
         {
             try
             {
-                //int curruserid = UserSession.UserID;
-
+                // Fetch the image URL from your database
                 string fetchedImageUrl = LoadImageUrlFromDatabase();
-
 
                 string apikey = "fw_3Zm3kcX4SQ3d5GKexgtRdrvW";
 
-                // Prepare the JSON payload correctly
+                // Prepare the JSON payload
                 var payload = new
                 {
-                    image_url = fetchedImageUrl, // Ensure this key matches what the API expects (image_url should be replaced by url if needed)
+                    image_url = fetchedImageUrl,
                     api_key = apikey
                 };
 
@@ -342,27 +396,122 @@ namespace Login_and_create_account_systems
                 {
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    var content = new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json");
+                    var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage response = await client.PostAsync("https://styleforge-measurement-engine-api-v1-168486608630.asia-south1.run.app/measurement-engine-api\r\n", content);
+                    HttpResponseMessage response = await client.PostAsync("https://styleforge-measurement-engine-api-v1-168486608630.asia-south1.run.app/measurement-engine-api", content);
                     string jsonResponse = await response.Content.ReadAsStringAsync();
-                    jsonresult = jsonResponse;
-                    //GlobalSettings.JSONresult = jsonResponse;
-                    Debug.WriteLine(jsonresult);
+                    //jsonresult = jsonResponse;
+                    GlobalSettings.JSONresult = jsonResponse;
 
-                    //SQl Query
-                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    Debug.WriteLine(GlobalSettings.JSONresult);
+
+                    // Parse the JSON response dynamically
+                    var jsonObject = JObject.Parse(GlobalSettings.JSONresult);
+
+                    if (jsonObject["status"]?.ToString() == "success")
                     {
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand("UPDATE Users SET UserMeasurments = @UserMeasurments WHERE UserID = @UserID", conn);
-                        cmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
-                        cmd.Parameters.AddWithValue("@UserMeasurments", jsonresult);
+                        var data = jsonObject["data"];
 
-                        cmd.ExecuteNonQuery();
+                        if (data != null)
+                        {
+                            // Store values in UserSession
+                            UserSession.SubjectHeight = data["subject-height"]?.ToString();
+                            UserSession.SubjectShoulder = data["subject-shoulder"]?.ToString();
+                            UserSession.SubjectChest = data["subject-chest"]?.ToString();
+                            UserSession.SubjectWaist = data["subject-waist"]?.ToString();
+                            UserSession.SubjectHip = data["subject-hip"]?.ToString();
+                            UserSession.SubjectArm = data["subject-arm"]?.ToString();
+                            UserSession.WaistToHipRatio = data["waist-to-hip-ratio"]?.ToString();
+
+                            // Populate the text boxes with the values
+                            //label_height.Text = UserSession.SubjectHeight;
+                            //label_shoulder.Text = UserSession.SubjectShoulder;
+                            //label_chest.Text = UserSession.SubjectChest;
+                            //label_waist.Text = UserSession.SubjectWaist;
+                            //label_hip.Text = UserSession.SubjectHip;
+                            //label_arm.Text = UserSession.SubjectArm;
+                            //label_ratio.Text = UserSession.WaistToHipRatio;
+
+                            // Save measurements to the database with override logic
+                            using (SqlConnection conn = new SqlConnection(connectionString))
+                            {
+                                conn.Open();
+
+                                // Check if the user already has a record in the table
+                                SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM UserMeasurements WHERE UserID = @UserID", conn);
+                                checkCmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+
+                                SqlCommand cmd = new SqlCommand("UPDATE Users SET UserMeasurments = @UserMeasurments WHERE UserID = @UserID", conn);
+                                cmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+                                cmd.Parameters.AddWithValue("@UserMeasurments", GlobalSettings.JSONresult);
+                                cmd.ExecuteNonQuery();
+
+
+
+
+
+
+                                int recordCount = (int)checkCmd.ExecuteScalar();
+
+                                if (recordCount > 0)
+                                {
+                                    // Update existing record
+                                    SqlCommand updateCmd = new SqlCommand(@"
+                                    UPDATE UserMeasurements
+                                    SET 
+                                        Height = @Height,
+                                        Shoulder = @Shoulder,
+                                        Chest = @Chest,
+                                        Waist = @Waist,
+                                        Hip = @Hip,
+                                        Arm = @Arm,
+                                        WaistToHipRatio = @WaistToHipRatio,
+                                        MeasurementDate = GETDATE()
+                                    WHERE UserID = @UserID", conn);
+
+                                    updateCmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+                                    updateCmd.Parameters.AddWithValue("@Height", UserSession.SubjectHeight);
+                                    updateCmd.Parameters.AddWithValue("@Shoulder", UserSession.SubjectShoulder);
+                                    updateCmd.Parameters.AddWithValue("@Chest", UserSession.SubjectChest);
+                                    updateCmd.Parameters.AddWithValue("@Waist", UserSession.SubjectWaist);
+                                    updateCmd.Parameters.AddWithValue("@Hip", UserSession.SubjectHip);
+                                    updateCmd.Parameters.AddWithValue("@Arm", UserSession.SubjectArm);
+                                    updateCmd.Parameters.AddWithValue("@WaistToHipRatio", UserSession.WaistToHipRatio);
+
+                                    updateCmd.ExecuteNonQuery();
+                                }
+                                else
+                                {
+                                    // Insert new record
+                                    SqlCommand insertCmd = new SqlCommand(@"
+                                    INSERT INTO UserMeasurements (UserID, Height, Shoulder, Chest, Waist, Hip, Arm, WaistToHipRatio)
+                                    VALUES (@UserID, @Height, @Shoulder, @Chest, @Waist, @Hip, @Arm, @WaistToHipRatio)", conn);
+
+                                    insertCmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+                                    insertCmd.Parameters.AddWithValue("@Height", UserSession.SubjectHeight);
+                                    insertCmd.Parameters.AddWithValue("@Shoulder", UserSession.SubjectShoulder);
+                                    insertCmd.Parameters.AddWithValue("@Chest", UserSession.SubjectChest);
+                                    insertCmd.Parameters.AddWithValue("@Waist", UserSession.SubjectWaist);
+                                    insertCmd.Parameters.AddWithValue("@Hip", UserSession.SubjectHip);
+                                    insertCmd.Parameters.AddWithValue("@Arm", UserSession.SubjectArm);
+                                    insertCmd.Parameters.AddWithValue("@WaistToHipRatio", UserSession.WaistToHipRatio);
+
+                                    insertCmd.ExecuteNonQuery();
+                                }
+                            }
+
+                            MessageBox.Show("Measurements extracted and saved! See Dashboard for results.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                       
+                        }
+                        else
+                        {
+                            MessageBox.Show("No measurement data found in the response.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-
-                        MessageBox.Show(jsonResponse, "Measurements Extracted! See Dashboard for Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    else
+                    {
+                        MessageBox.Show("Failed to extract measurements. Please check the response or API key.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             catch (Exception ex)

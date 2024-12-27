@@ -293,153 +293,152 @@ namespace Login_and_create_account_systems
 
 
 
-        public string jsonresult;
+        //public string jsonresult;
 
-        private async void CallMeasurementEngineApi()
-        {
-            try
-            {
-                // Fetch the image URL from your database
-                string fetchedImageUrl = LoadImageUrlFromDatabase();
+        //private async void CallMeasurementEngineApi()
+        //{
+        //    try
+        //    {
+        //        // Fetch the image URL from your database
+        //        string fetchedImageUrl = LoadImageUrlFromDatabase();
 
-                string apikey = "fw_3Zm3kcX4SQ3d5GKexgtRdrvW";
+        //        string apikey = "fw_3Zm3kcX4SQ3d5GKexgtRdrvW";
 
-                // Prepare the JSON payload
-                var payload = new
-                {
-                    image_url = fetchedImageUrl,
-                    api_key = apikey
-                };
+        //        // Prepare the JSON payload
+        //        var payload = new
+        //        {
+        //            image_url = fetchedImageUrl,
+        //            api_key = apikey
+        //        };
 
-                string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
+        //        string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
 
-                // Send the request to the API
-                using (HttpClient client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //        // Send the request to the API
+        //        using (HttpClient client = new HttpClient())
+        //        {
+        //            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
+        //            var content = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage response = await client.PostAsync("https://styleforge-measurement-engine-api-v1-168486608630.asia-south1.run.app/measurement-engine-api", content);
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-                    jsonresult = jsonResponse;
+        //            HttpResponseMessage response = await client.PostAsync("https://styleforge-measurement-engine-api-v1-168486608630.asia-south1.run.app/measurement-engine-api", content);
+        //            string jsonResponse = await response.Content.ReadAsStringAsync();
+        //            jsonresult = jsonResponse;
 
-                    Debug.WriteLine(jsonresult);
+        //            Debug.WriteLine(jsonresult);
 
-                    // Parse the JSON response dynamically
-                    var jsonObject = JObject.Parse(jsonResponse);
+        //            // Parse the JSON response dynamically
+        //            var jsonObject = JObject.Parse(jsonResponse);
 
-                    if (jsonObject["status"]?.ToString() == "success")
-                    {
-                        var data = jsonObject["data"];
+        //            if (jsonObject["status"]?.ToString() == "success")
+        //            {
+        //                var data = jsonObject["data"];
 
-                        if (data != null)
-                        {
-                            // Store values in UserSession
-                            UserSession.SubjectHeight = data["subject-height"]?.ToString();
-                            UserSession.SubjectShoulder = data["subject-shoulder"]?.ToString();
-                            UserSession.SubjectChest = data["subject-chest"]?.ToString();
-                            UserSession.SubjectWaist = data["subject-waist"]?.ToString();
-                            UserSession.SubjectHip = data["subject-hip"]?.ToString();
-                            UserSession.SubjectArm = data["subject-arm"]?.ToString();
-                            UserSession.WaistToHipRatio = data["waist-to-hip-ratio"]?.ToString();
+        //                if (data != null)
+        //                {
+        //                    // Store values in UserSession
+        //                    UserSession.SubjectHeight = data["subject-height"]?.ToString();
+        //                    UserSession.SubjectShoulder = data["subject-shoulder"]?.ToString();
+        //                    UserSession.SubjectChest = data["subject-chest"]?.ToString();
+        //                    UserSession.SubjectWaist = data["subject-waist"]?.ToString();
+        //                    UserSession.SubjectHip = data["subject-hip"]?.ToString();
+        //                    UserSession.SubjectArm = data["subject-arm"]?.ToString();
+        //                    UserSession.WaistToHipRatio = data["waist-to-hip-ratio"]?.ToString();
 
-                            // Populate the text boxes with the values
-                            label_height.Text = UserSession.SubjectHeight;
-                            label_shoulder.Text = UserSession.SubjectShoulder;
-                            label_chest.Text = UserSession.SubjectChest;
-                            label_waist.Text = UserSession.SubjectWaist;
-                            label_hip.Text = UserSession.SubjectHip;
-                            label_arm.Text = UserSession.SubjectArm;
-                            label_ratio.Text = UserSession.WaistToHipRatio;
+        //                    // Populate the text boxes with the values
+        //                    label_height.Text = UserSession.SubjectHeight;
+        //                    label_shoulder.Text = UserSession.SubjectShoulder;
+        //                    label_chest.Text = UserSession.SubjectChest;
+        //                    label_waist.Text = UserSession.SubjectWaist;
+        //                    label_hip.Text = UserSession.SubjectHip;
+        //                    label_arm.Text = UserSession.SubjectArm;
+        //                    label_ratio.Text = UserSession.WaistToHipRatio;
 
-                            // Save measurements to the database with override logic
-                            using (SqlConnection conn = new SqlConnection(connectionString))
-                            {
-                                conn.Open();
+        //                    // Save measurements to the database with override logic
+        //                    using (SqlConnection conn = new SqlConnection(connectionString))
+        //                    {
+        //                        conn.Open();
 
-                                // Check if the user already has a record in the table
-                                SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM UserMeasurements WHERE UserID = @UserID", conn);
-                                checkCmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+        //                        // Check if the user already has a record in the table
+        //                        SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM UserMeasurements WHERE UserID = @UserID", conn);
+        //                        checkCmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
 
-                                int recordCount = (int)checkCmd.ExecuteScalar();
+        //                        int recordCount = (int)checkCmd.ExecuteScalar();
 
-                                if (recordCount > 0)
-                                {
-                                    // Update existing record
-                                    SqlCommand updateCmd = new SqlCommand(@"
-                                    UPDATE UserMeasurements
-                                    SET 
-                                        Height = @Height,
-                                        Shoulder = @Shoulder,
-                                        Chest = @Chest,
-                                        Waist = @Waist,
-                                        Hip = @Hip,
-                                        Arm = @Arm,
-                                        WaistToHipRatio = @WaistToHipRatio,
-                                        MeasurementDate = GETDATE()
-                                    WHERE UserID = @UserID", conn);
+        //                        if (recordCount > 0)
+        //                        {
+        //                            // Update existing record
+        //                            SqlCommand updateCmd = new SqlCommand(@"
+        //                            UPDATE UserMeasurements
+        //                            SET 
+        //                                Height = @Height,
+        //                                Shoulder = @Shoulder,
+        //                                Chest = @Chest,
+        //                                Waist = @Waist,
+        //                                Hip = @Hip,
+        //                                Arm = @Arm,
+        //                                WaistToHipRatio = @WaistToHipRatio,
+        //                                MeasurementDate = GETDATE()
+        //                            WHERE UserID = @UserID", conn);
 
-                                    updateCmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
-                                    updateCmd.Parameters.AddWithValue("@Height", UserSession.SubjectHeight);
-                                    updateCmd.Parameters.AddWithValue("@Shoulder", UserSession.SubjectShoulder);
-                                    updateCmd.Parameters.AddWithValue("@Chest", UserSession.SubjectChest);
-                                    updateCmd.Parameters.AddWithValue("@Waist", UserSession.SubjectWaist);
-                                    updateCmd.Parameters.AddWithValue("@Hip", UserSession.SubjectHip);
-                                    updateCmd.Parameters.AddWithValue("@Arm", UserSession.SubjectArm);
-                                    updateCmd.Parameters.AddWithValue("@WaistToHipRatio", UserSession.WaistToHipRatio);
+        //                            updateCmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+        //                            updateCmd.Parameters.AddWithValue("@Height", UserSession.SubjectHeight);
+        //                            updateCmd.Parameters.AddWithValue("@Shoulder", UserSession.SubjectShoulder);
+        //                            updateCmd.Parameters.AddWithValue("@Chest", UserSession.SubjectChest);
+        //                            updateCmd.Parameters.AddWithValue("@Waist", UserSession.SubjectWaist);
+        //                            updateCmd.Parameters.AddWithValue("@Hip", UserSession.SubjectHip);
+        //                            updateCmd.Parameters.AddWithValue("@Arm", UserSession.SubjectArm);
+        //                            updateCmd.Parameters.AddWithValue("@WaistToHipRatio", UserSession.WaistToHipRatio);
 
-                                    updateCmd.ExecuteNonQuery();
-                                }
-                                else
-                                {
-                                    // Insert new record
-                                    SqlCommand insertCmd = new SqlCommand(@"
-                                    INSERT INTO UserMeasurements (UserID, Height, Shoulder, Chest, Waist, Hip, Arm, WaistToHipRatio)
-                                    VALUES (@UserID, @Height, @Shoulder, @Chest, @Waist, @Hip, @Arm, @WaistToHipRatio)", conn);
+        //                            updateCmd.ExecuteNonQuery();
+        //                        }
+        //                        else
+        //                        {
+        //                            // Insert new record
+        //                            SqlCommand insertCmd = new SqlCommand(@"
+        //                            INSERT INTO UserMeasurements (UserID, Height, Shoulder, Chest, Waist, Hip, Arm, WaistToHipRatio)
+        //                            VALUES (@UserID, @Height, @Shoulder, @Chest, @Waist, @Hip, @Arm, @WaistToHipRatio)", conn);
 
-                                    insertCmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
-                                    insertCmd.Parameters.AddWithValue("@Height", UserSession.SubjectHeight);
-                                    insertCmd.Parameters.AddWithValue("@Shoulder", UserSession.SubjectShoulder);
-                                    insertCmd.Parameters.AddWithValue("@Chest", UserSession.SubjectChest);
-                                    insertCmd.Parameters.AddWithValue("@Waist", UserSession.SubjectWaist);
-                                    insertCmd.Parameters.AddWithValue("@Hip", UserSession.SubjectHip);
-                                    insertCmd.Parameters.AddWithValue("@Arm", UserSession.SubjectArm);
-                                    insertCmd.Parameters.AddWithValue("@WaistToHipRatio", UserSession.WaistToHipRatio);
+        //                            insertCmd.Parameters.AddWithValue("@UserID", UserSession.UserID);
+        //                            insertCmd.Parameters.AddWithValue("@Height", UserSession.SubjectHeight);
+        //                            insertCmd.Parameters.AddWithValue("@Shoulder", UserSession.SubjectShoulder);
+        //                            insertCmd.Parameters.AddWithValue("@Chest", UserSession.SubjectChest);
+        //                            insertCmd.Parameters.AddWithValue("@Waist", UserSession.SubjectWaist);
+        //                            insertCmd.Parameters.AddWithValue("@Hip", UserSession.SubjectHip);
+        //                            insertCmd.Parameters.AddWithValue("@Arm", UserSession.SubjectArm);
+        //                            insertCmd.Parameters.AddWithValue("@WaistToHipRatio", UserSession.WaistToHipRatio);
 
-                                    insertCmd.ExecuteNonQuery();
-                                }
-                            }
+        //                            insertCmd.ExecuteNonQuery();
+        //                        }
+        //                    }
 
-                            MessageBox.Show("Measurements extracted and saved! See Dashboard for results.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            ShowMeasurements();
-                        }
-                        else
-                        {
-                            MessageBox.Show("No measurement data found in the response.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Failed to extract measurements. Please check the response or API key.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error calling API: " + ex.Message);
-            }
-        }
+        //                    MessageBox.Show("Measurements extracted and saved! See Dashboard for results.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //                    ShowMeasurements();
+        //                }
+        //                else
+        //                {
+        //                    MessageBox.Show("No measurement data found in the response.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Failed to extract measurements. Please check the response or API key.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error calling API: " + ex.Message);
+        //    }
+        //}
 
-        private void btnFetchMeasurements_Click(object sender, EventArgs e)
-        {
-
-            CallMeasurementEngineApi();
-
-
-        }
+       
 
         private void label_showm_Click(object sender, EventArgs e)
+        {
+            FetchMeasurements();
+        }
+
+        private void FetchMeasurements()
         {
             try
             {
@@ -486,7 +485,6 @@ namespace Login_and_create_account_systems
 
 
         }
-
 
     }
 }

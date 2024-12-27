@@ -576,7 +576,7 @@ namespace Login_and_create_account_systems
             button6.TabIndex = 47;
             button6.Text = "Extract Measurements";
             button6.UseVisualStyleBackColor = false;
-            button6.Click += button6_Click;
+
             // 
             // Form6
             // 
