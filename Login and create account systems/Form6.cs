@@ -25,6 +25,7 @@ namespace Login_and_create_account_systems
         public string destinationPath;
         public string newimagePath;
         public string imageUrl;
+        //public string jsonresult { get; private set; }
         public string apiKey = "191d6566b275d0609a6c3b38e36f8bc3";
 
         public string GetApiKey()
@@ -372,7 +373,7 @@ namespace Login_and_create_account_systems
         //    }
         //}
 
-        public string jsonresult;
+        //public string jsonresult;
         private async void CallMeasurementEngineApi()
         {
             try
@@ -400,7 +401,8 @@ namespace Login_and_create_account_systems
 
                     HttpResponseMessage response = await client.PostAsync("https://styleforge-measurement-engine-api-v1-168486608630.asia-south1.run.app/measurement-engine-api", content);
                     string jsonResponse = await response.Content.ReadAsStringAsync();
-                    //jsonresult = jsonResponse;
+
+                    UserSession.jsonmeasurements = jsonResponse;
                     GlobalSettings.JSONresult = jsonResponse;
 
                     Debug.WriteLine(GlobalSettings.JSONresult);

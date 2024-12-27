@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
@@ -20,6 +21,7 @@ namespace Login_and_create_account_systems
         private string connectionString = "Data Source=styleforge-ms-sql-server.ch0q4qge64ch.eu-north-1.rds.amazonaws.com;Initial Catalog=StyleForgeDB;Persist Security Info=True;User ID=admin;Password=StyleForge#123;Trust Server Certificate=True";
         public string destinationPath = GlobalSettings.DestinationPath;
         public string imageUrl;
+        //public string jsonresult { get; set; }
         public Form3()
         {
             InitializeComponent();
@@ -293,7 +295,7 @@ namespace Login_and_create_account_systems
 
 
 
-        //public string jsonresult;
+        /*//public string jsonresult;
 
         //private async void CallMeasurementEngineApi()
         //{
@@ -429,7 +431,7 @@ namespace Login_and_create_account_systems
         //    {
         //        MessageBox.Show("Error calling API: " + ex.Message);
         //    }
-        //}
+        //}*/
 
        
 
@@ -437,7 +439,7 @@ namespace Login_and_create_account_systems
         {
             FetchMeasurements();
         }
-
+        public string formattedOutput;
         private void FetchMeasurements()
         {
             try
@@ -459,16 +461,31 @@ namespace Login_and_create_account_systems
                     {
                         if (reader.Read())
                         {
-                            // Populate the textboxes with the values from the database
-                            label_height.Text = reader["Height"].ToString();
-                            label_shoulder.Text = reader["Shoulder"].ToString();
-                            label_chest.Text = reader["Chest"].ToString();
-                            label_waist.Text = reader["Waist"].ToString();
-                            label_hip.Text = reader["Hip"].ToString();
-                            label_arm.Text = reader["Arm"].ToString();
-                            label_ratio.Text = reader["WaistToHipRatio"].ToString();
+                            // Extract values from the database
+                            double height = Convert.ToDouble(reader["Height"]);
+                            double shoulder = Convert.ToDouble(reader["Shoulder"]);
+                            double chest = Convert.ToDouble(reader["Chest"]);
+                            double waist = Convert.ToDouble(reader["Waist"]);
+                            double hip = Convert.ToDouble(reader["Hip"]);
+                            double arm = Convert.ToDouble(reader["Arm"]);
+                            double waistToHipRatio = Convert.ToDouble(reader["WaistToHipRatio"]);
 
-                            //MessageBox.Show("Measurements successfully loaded from the database.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // Format the output string
+                            formattedOutput = $"subject-height: {height}, subject-shoulder: {shoulder}, subject-chest: {chest}, subject-waist: {waist}, subject-hip: {hip}, subject-arm: {arm}, waist-to-hip-ratio: {waistToHipRatio}";
+
+                            // Output the formatted string
+                            MessageBox.Show(formattedOutput, "Measurements", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Optionally, you can still populate the labels if needed
+                            label_height.Text = height.ToString();
+                            label_shoulder.Text = shoulder.ToString();
+                            label_chest.Text = chest.ToString();
+                            label_waist.Text = waist.ToString();
+                            label_hip.Text = hip.ToString();
+                            label_arm.Text = arm.ToString();
+                            label_ratio.Text = waistToHipRatio.ToString();
+
+                            // MessageBox.Show("Measurements successfully loaded from the database.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             ShowMeasurements();
                         }
                         else
@@ -491,7 +508,17 @@ namespace Login_and_create_account_systems
             CallRSEQApi();
         }
 
+        //string jsonresult = GlobalSettings.JSONresult;
         
+
+        /*public static string ParseJsonToSingleString(string jsonString)
+        {
+            JObject json = JObject.Parse(jsonString);
+            JObject data = (JObject)json["data"];
+
+            string result = string.Join(", ", data.Properties().Select(prop => $"{prop.Name}: {prop.Value}"));
+            return result;
+        }*/
         private async void CallRSEQApi()
         {
             try
@@ -500,10 +527,13 @@ namespace Login_and_create_account_systems
 
                 //string fetchedImageUrl = LoadImageUrlFromDatabase();
 
+                //Debug.WriteLine(formattedOutput);
 
                 string apikey = "fw_3Zm3kcX4SQ3d5GKexgtRdrvW";
                 string jsonrseq = "| **Height Range** | **Tops** | **Bottoms** | **Shoes** | **Accessories** | **Color Sense** | |------------------|------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------| | **160–167 cm** | - Fitted t-shirts or polo shirts<br>- Vertical stripes or small patterns<br>- Waist-length jackets | - Slim-fit jeans or chinos<br>- Cropped or ankle-length trousers<br>- Darker colors for elongation | - Low-profile sneakers<br>- Chelsea boots with slight heels<br>- Minimalist designs | - Slim belts<br>- Medium-sized bags<br>- Sleek caps or beanies | - Monochrome outfits<br>- Contrast light tops with dark bottoms for balance | | **167–174 cm** | - Slim-fit or tailored shirts<br>- V-neck sweaters<br>- Layered outfits with proportions | - Tapered or straight-leg pants<br>- Mid-rise trousers<br>- Neutral or solid colors | - Low or mid-profile sneakers<br>- Desert boots or loafers | - Leather belts<br>- Medium-to-small backpacks<br>- Simple watches or bracelets | - Earth tones or muted palettes<br>- Incorporate subtle patterns for variety | | **174–181 cm** | - Casual t-shirts and shirts with added layering<br>- Neutral colors or subtle patterns<br>- Slim jackets | - Straight-leg or slightly relaxed pants<br>- Dark or earthy tones | - Sneakers, loafers, or boots<br>- Avoid overly flat or exaggerated platforms | - Medium-width belts<br>- Messenger bags or crossbody bags<br>- Simple caps | - Neutral tones with bold accent pieces<br>- Dark tops for a slimming effect | | **181–188 cm** | - Slim-fit button-ups<br>- Long-sleeve t-shirts<br>- Tailored blazers for casual events | - Slightly relaxed fit pants<br>- Avoid overly slim styles for balance | - Casual leather sneakers<br>- Brogue boots for added style | - Larger backpacks or shoulder bags<br>- Statement watches | - Classic tones like navy, gray, or white<br>- Use vertical patterns to emphasize height | | **188–195 cm** | - Tailored shirts or turtlenecks<br>- Longline t-shirts or sweaters<br>- Coats ending mid-thigh for balance | - Straight-cut pants<br>- Avoid cropped pants unless paired with boots | - High-top sneakers or boots<br>- Classic leather shoes | - Structured bags<br>- Wider belts for balance<br>- Subtle scarves or accessories | - Deep tones like burgundy, forest green, or charcoal<br>- Avoid overly busy patterns for balance |";
-                string jsonbody = GlobalSettings.JSONresult;
+                //string jsonbody = "{ "subject-height":177.5,"subject-shoulder":46.5,"subject-chest":89.5,"subject-waist":76,"subject-hip":94.5,"subject-arm":57,"waist-to-hip-ratio":0.805}";
+                FetchMeasurements();
+                Debug.WriteLine(formattedOutput);
 
                 // Prepare the JSON payload correctly
                 var payload = new
@@ -511,7 +541,7 @@ namespace Login_and_create_account_systems
                     // Ensure this key matches what the API expects (image_url should be replaced by url if needed)
                     api_key = apikey,
                     recommendation_table = jsonrseq,
-                    body_analysis_table = jsonbody
+                    body_analysis_table = formattedOutput,
                 };
 
                 string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);

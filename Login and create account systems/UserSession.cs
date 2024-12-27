@@ -25,6 +25,8 @@ namespace Login_and_create_account_systems
         public static string SubjectArm { get; set; }
         public static string WaistToHipRatio { get; set; }
 
+        public static string jsonmeasurements { get; set; }
+
         public static void ClearSession()
         {
             UserID = 0;
