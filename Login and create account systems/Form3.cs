@@ -524,7 +524,6 @@ namespace Login_and_create_account_systems
             return result;
         }*/
 
-
         private async void CallRSEQApi()
         {
             string apikey = "fw_3Zm3kcX4SQ3d5GKexgtRdrvW";
@@ -552,30 +551,49 @@ namespace Login_and_create_account_systems
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine(jsonResponse);
 
-                // Remove the surrounding backticks and escape sequences
-                jsonResponse = jsonResponse.Replace("```", "").Replace("\\n", "").Trim();
+                // Remove surrounding backticks and escape sequences
+                jsonResponse = jsonResponse.Replace("```", "").Trim();
 
                 try
                 {
                     var json = JObject.Parse(jsonResponse);
                     string dataString = json["data"].ToString();
 
+                    // Unescape the JSON string inside the "data" field
+                    dataString = dataString.Replace("\\n", "\n").Replace("\\\"", "\"").Trim();
                     var dataJson = JObject.Parse(dataString);
 
-                    string textRecommendations = dataJson["text_recommendations"].ToString();
+                    // Extract only the text recommendations
+                    string textRecommendations = dataJson["text_recommendations"]?.ToString()?.Trim();
 
-                    // Update the label with the text recommendations data
-                    label_txtrecomm.Text = "Here are your Recommendations!\n\n" + textRecommendations.Trim();
-
-                    MessageBox.Show(jsonResponse, "RSEQ Extracted! See Dashboard for Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (!string.IsNullOrEmpty(textRecommendations))
+                    {
+                        // Update the label with only the recommendations
+                        label_txtrecomm.Text = "Here are your Recommendations!\n\n" + textRecommendations;
+                        MessageBox.Show("RSEQ Extracted! See Dashboard for Results", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        // Show a message if recommendations are missing
+                        label_txtrecomm.Text = "No recommendations found.";
+                        MessageBox.Show("No recommendations found in the response.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 catch (Newtonsoft.Json.JsonReaderException ex)
                 {
                     Debug.WriteLine("Error parsing JSON: " + ex.Message);
                     MessageBox.Show("Failed to parse JSON response. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Unexpected error: " + ex.Message);
+                    MessageBox.Show("An unexpected error occurred. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+
+
+
 
 
         private void button10_Click(object sender, EventArgs e)
