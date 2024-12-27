@@ -79,6 +79,9 @@
             label_height = new Label();
             panel5 = new Panel();
             label7 = new Label();
+            flowLayoutPanel3 = new FlowLayoutPanel();
+            flowLayoutPanel4 = new FlowLayoutPanel();
+            label_txtrecomm = new Label();
             panel6 = new Panel();
             button11 = new Button();
             button10 = new Button();
@@ -88,9 +91,6 @@
             panel4 = new Panel();
             label_usernameses = new Label();
             label2 = new Label();
-            flowLayoutPanel3 = new FlowLayoutPanel();
-            flowLayoutPanel4 = new FlowLayoutPanel();
-            label_txtrecomm = new Label();
             panel_head.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)profile).BeginInit();
             panel2.SuspendLayout();
@@ -116,11 +116,11 @@
             panel10.SuspendLayout();
             panel9.SuspendLayout();
             panel5.SuspendLayout();
+            flowLayoutPanel3.SuspendLayout();
+            flowLayoutPanel4.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             panel4.SuspendLayout();
-            flowLayoutPanel3.SuspendLayout();
-            flowLayoutPanel4.SuspendLayout();
             SuspendLayout();
             // 
             // label4
@@ -403,6 +403,7 @@
             // 
             // flowLayoutPanel2
             // 
+            flowLayoutPanel2.AutoSize = true;
             flowLayoutPanel2.BackColor = Color.White;
             flowLayoutPanel2.Controls.Add(label3);
             flowLayoutPanel2.Controls.Add(panel7);
@@ -411,8 +412,10 @@
             flowLayoutPanel2.Controls.Add(flowLayoutPanel3);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel2.Location = new Point(15, 175);
+            flowLayoutPanel2.MaximumSize = new Size(653, 10000);
+            flowLayoutPanel2.MinimumSize = new Size(653, 932);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(653, 4131);
+            flowLayoutPanel2.Size = new Size(653, 932);
             flowLayoutPanel2.TabIndex = 49;
             // 
             // label3
@@ -712,6 +715,46 @@
             label7.TabIndex = 44;
             label7.Text = "Recommendations";
             // 
+            // flowLayoutPanel3
+            // 
+            flowLayoutPanel3.AutoSize = true;
+            flowLayoutPanel3.BackColor = SystemColors.Control;
+            flowLayoutPanel3.Controls.Add(flowLayoutPanel4);
+            flowLayoutPanel3.Location = new Point(20, 711);
+            flowLayoutPanel3.Margin = new Padding(20, 0, 20, 20);
+            flowLayoutPanel3.MaximumSize = new Size(606, 0);
+            flowLayoutPanel3.MinimumSize = new Size(606, 111);
+            flowLayoutPanel3.Name = "flowLayoutPanel3";
+            flowLayoutPanel3.Size = new Size(606, 111);
+            flowLayoutPanel3.TabIndex = 49;
+            // 
+            // flowLayoutPanel4
+            // 
+            flowLayoutPanel4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            flowLayoutPanel4.AutoSize = true;
+            flowLayoutPanel4.BackColor = Color.White;
+            flowLayoutPanel4.Controls.Add(label_txtrecomm);
+            flowLayoutPanel4.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel4.Location = new Point(20, 20);
+            flowLayoutPanel4.Margin = new Padding(20);
+            flowLayoutPanel4.MaximumSize = new Size(558, 0);
+            flowLayoutPanel4.MinimumSize = new Size(558, 71);
+            flowLayoutPanel4.Name = "flowLayoutPanel4";
+            flowLayoutPanel4.Size = new Size(558, 71);
+            flowLayoutPanel4.TabIndex = 1;
+            // 
+            // label_txtrecomm
+            // 
+            label_txtrecomm.AutoSize = true;
+            label_txtrecomm.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label_txtrecomm.ForeColor = Color.FromArgb(126, 34, 206);
+            label_txtrecomm.Location = new Point(20, 20);
+            label_txtrecomm.Margin = new Padding(20);
+            label_txtrecomm.Name = "label_txtrecomm";
+            label_txtrecomm.Size = new Size(264, 31);
+            label_txtrecomm.TabIndex = 47;
+            label_txtrecomm.Text = "Text Recommendations";
+            // 
             // panel6
             // 
             panel6.BackColor = Color.White;
@@ -828,45 +871,6 @@
             label2.TabIndex = 42;
             label2.Text = "Welcome";
             // 
-            // flowLayoutPanel3
-            // 
-            flowLayoutPanel3.AutoSize = true;
-            flowLayoutPanel3.BackColor = SystemColors.Control;
-            flowLayoutPanel3.Controls.Add(flowLayoutPanel4);
-            flowLayoutPanel3.Location = new Point(20, 711);
-            flowLayoutPanel3.Margin = new Padding(20, 0, 20, 20);
-            flowLayoutPanel3.MinimumSize = new Size(606, 71);
-            flowLayoutPanel3.Name = "flowLayoutPanel3";
-            flowLayoutPanel3.Size = new Size(606, 111);
-            flowLayoutPanel3.TabIndex = 49;
-            // 
-            // flowLayoutPanel4
-            // 
-            flowLayoutPanel4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            flowLayoutPanel4.AutoScrollMinSize = new Size(558, 71);
-            flowLayoutPanel4.AutoSize = true;
-            flowLayoutPanel4.BackColor = Color.White;
-            flowLayoutPanel4.Controls.Add(label_txtrecomm);
-            flowLayoutPanel4.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel4.Location = new Point(20, 20);
-            flowLayoutPanel4.Margin = new Padding(20);
-            flowLayoutPanel4.MinimumSize = new Size(558, 71);
-            flowLayoutPanel4.Name = "flowLayoutPanel4";
-            flowLayoutPanel4.Size = new Size(558, 71);
-            flowLayoutPanel4.TabIndex = 1;
-            // 
-            // label_txtrecomm
-            // 
-            label_txtrecomm.AutoSize = true;
-            label_txtrecomm.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label_txtrecomm.ForeColor = Color.FromArgb(126, 34, 206);
-            label_txtrecomm.Location = new Point(20, 20);
-            label_txtrecomm.Margin = new Padding(20);
-            label_txtrecomm.Name = "label_txtrecomm";
-            label_txtrecomm.Size = new Size(264, 31);
-            label_txtrecomm.TabIndex = 47;
-            label_txtrecomm.Text = "Text Recommendations";
-            // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -915,15 +919,15 @@
             panel9.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
+            flowLayoutPanel3.ResumeLayout(false);
+            flowLayoutPanel3.PerformLayout();
+            flowLayoutPanel4.ResumeLayout(false);
+            flowLayoutPanel4.PerformLayout();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
-            flowLayoutPanel3.ResumeLayout(false);
-            flowLayoutPanel3.PerformLayout();
-            flowLayoutPanel4.ResumeLayout(false);
-            flowLayoutPanel4.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }

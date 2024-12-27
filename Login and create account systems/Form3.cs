@@ -551,12 +551,14 @@ namespace Login_and_create_account_systems
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine(jsonResponse);
 
+
+
                 // Parse the JSON response to extract search engine queries
                 try
                 {
                     var json = JObject.Parse(jsonResponse.Replace("```", "").Trim());
                     string dataString = json["data"].ToString();
-                    dataString = dataString.Replace("\\n", "\n").Replace("\\\"", "\"").Trim();
+                    dataString = dataString.Replace("```", "").Replace("\\n", "\n").Trim();
 
                     var dataJson = JObject.Parse(dataString);
 
