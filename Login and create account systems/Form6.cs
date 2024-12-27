@@ -312,7 +312,7 @@ namespace Login_and_create_account_systems
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
-           return imageUrl;
+            return imageUrl;
         }
 
 
@@ -503,7 +503,7 @@ namespace Login_and_create_account_systems
                             }
 
                             MessageBox.Show("Measurements extracted and saved! See Dashboard for results.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                       
+
                         }
                         else
                         {
@@ -694,7 +694,8 @@ namespace Login_and_create_account_systems
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+
+        private void button6_Click_1(object sender, EventArgs e)
         {
             CallMeasurementEngineApi();
         }

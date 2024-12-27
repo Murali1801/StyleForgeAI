@@ -56,6 +56,7 @@ namespace Login_and_create_account_systems
             btnProfile = new Button();
             label9 = new Label();
             panel6 = new Panel();
+            button6 = new Button();
             label8 = new Label();
             pictureBox4 = new PictureBox();
             panel_changepassword = new Panel();
@@ -68,7 +69,6 @@ namespace Login_and_create_account_systems
             profile = new PictureBox();
             label2 = new Label();
             label3 = new Label();
-            button6 = new Button();
             panel_head.SuspendLayout();
             panel2.SuspendLayout();
             panel_hidden.SuspendLayout();
@@ -419,6 +419,23 @@ namespace Login_and_create_account_systems
             panel6.Size = new Size(451, 668);
             panel6.TabIndex = 7;
             // 
+            // button6
+            // 
+            button6.BackColor = Color.White;
+            button6.Cursor = Cursors.Hand;
+            button6.FlatAppearance.BorderSize = 0;
+            button6.FlatStyle = FlatStyle.Flat;
+            button6.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button6.ForeColor = Color.White;
+            button6.Image = (Image)resources.GetObject("button6.Image");
+            button6.Location = new Point(52, 585);
+            button6.Name = "button6";
+            button6.Size = new Size(367, 70);
+            button6.TabIndex = 47;
+            button6.Text = "Extract Measurements";
+            button6.UseVisualStyleBackColor = false;
+            button6.Click += button6_Click_1;
+            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -560,23 +577,6 @@ namespace Login_and_create_account_systems
             label3.Size = new Size(86, 17);
             label3.TabIndex = 40;
             label3.Text = "StyleForgeAI";
-            // 
-            // button6
-            // 
-            button6.BackColor = Color.White;
-            button6.Cursor = Cursors.Hand;
-            button6.FlatAppearance.BorderSize = 0;
-            button6.FlatStyle = FlatStyle.Flat;
-            button6.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button6.ForeColor = Color.White;
-            button6.Image = (Image)resources.GetObject("button6.Image");
-            button6.Location = new Point(52, 585);
-            button6.Name = "button6";
-            button6.Size = new Size(367, 70);
-            button6.TabIndex = 47;
-            button6.Text = "Extract Measurements";
-            button6.UseVisualStyleBackColor = false;
-
             // 
             // Form6
             // 
