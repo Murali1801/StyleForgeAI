@@ -551,30 +551,37 @@ namespace Login_and_create_account_systems
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine(jsonResponse);
 
-                // Remove surrounding backticks and escape sequences
-                jsonResponse = jsonResponse.Replace("```", "").Trim();
-
+                // Parse the JSON response to extract search engine queries
                 try
                 {
-                    var json = JObject.Parse(jsonResponse);
+                    var json = JObject.Parse(jsonResponse.Replace("```", "").Trim());
                     string dataString = json["data"].ToString();
-
-                    // Unescape the JSON string inside the "data" field
                     dataString = dataString.Replace("\\n", "\n").Replace("\\\"", "\"").Trim();
+
                     var dataJson = JObject.Parse(dataString);
 
-                    // Extract only the text recommendations
+                    // Extract the search engine queries
+                    string topWearQuery = dataJson["top_wear_search_engine_query"]?.ToString();
+                    string bottomWearQuery = dataJson["bottom_wear_search_engine_query"]?.ToString();
+                    string shoesQuery = dataJson["shoes_search_engine_query"]?.ToString();
+                    string colorRecommendationsQuery = dataJson["color_recommendations_search_engine_query"]?.ToString();
+
+                    // Log the queries in the Debug console
+                    Debug.WriteLine("Top Wear Query: " + topWearQuery);
+                    Debug.WriteLine("Bottom Wear Query: " + bottomWearQuery);
+                    Debug.WriteLine("Shoes Query: " + shoesQuery);
+                    Debug.WriteLine("Color Recommendations Query: " + colorRecommendationsQuery);
+
+                    // Proceed with extracting text recommendations
                     string textRecommendations = dataJson["text_recommendations"]?.ToString()?.Trim();
 
                     if (!string.IsNullOrEmpty(textRecommendations))
                     {
-                        // Update the label with only the recommendations
                         label_txtrecomm.Text = "Here are your Recommendations!\n\n" + textRecommendations;
                         MessageBox.Show("RSEQ Extracted! See Dashboard for Results", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        // Show a message if recommendations are missing
                         label_txtrecomm.Text = "No recommendations found.";
                         MessageBox.Show("No recommendations found in the response.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -591,8 +598,6 @@ namespace Login_and_create_account_systems
                 }
             }
         }
-
-
 
 
 
