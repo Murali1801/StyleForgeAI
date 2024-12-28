@@ -59,12 +59,14 @@
             panel_changepassword = new Panel();
             button7 = new Button();
             button6 = new Button();
-            label2 = new Label();
             panel_head = new Panel();
+            profile = new PictureBox();
             label1 = new Label();
             label4 = new Label();
             sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
-            profile = new PictureBox();
+            panel7 = new Panel();
+            label_showm = new Label();
+            panel8 = new Panel();
             flowLayoutPanel1.SuspendLayout();
             panel_nav.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
@@ -83,6 +85,8 @@
             panel_changepassword.SuspendLayout();
             panel_head.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)profile).BeginInit();
+            panel7.SuspendLayout();
+            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -263,7 +267,7 @@
             button4.Name = "button4";
             button4.Size = new Size(160, 70);
             button4.TabIndex = 3;
-            button4.Text = "Settings";
+            button4.Text = "About";
             button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
             // 
@@ -414,9 +418,8 @@
             // panel_changepassword
             // 
             panel_changepassword.BackColor = Color.White;
-            panel_changepassword.Controls.Add(button7);
-            panel_changepassword.Controls.Add(button6);
-            panel_changepassword.Controls.Add(label2);
+            panel_changepassword.Controls.Add(panel8);
+            panel_changepassword.Controls.Add(panel7);
             panel_changepassword.Location = new Point(15, 128);
             panel_changepassword.Name = "panel_changepassword";
             panel_changepassword.Size = new Size(539, 414);
@@ -430,10 +433,10 @@
             button7.FlatStyle = FlatStyle.Flat;
             button7.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button7.ForeColor = Color.White;
-            button7.Location = new Point(28, 192);
+            button7.Location = new Point(22, 156);
             button7.Margin = new Padding(0);
             button7.Name = "button7";
-            button7.Size = new Size(477, 70);
+            button7.Size = new Size(428, 70);
             button7.TabIndex = 43;
             button7.Text = "Forgot Password";
             button7.UseVisualStyleBackColor = false;
@@ -447,25 +450,14 @@
             button6.FlatStyle = FlatStyle.Flat;
             button6.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button6.ForeColor = Color.White;
-            button6.Location = new Point(28, 89);
+            button6.Location = new Point(22, 47);
             button6.Margin = new Padding(0);
             button6.Name = "button6";
-            button6.Size = new Size(477, 70);
+            button6.Size = new Size(428, 70);
             button6.TabIndex = 5;
             button6.Text = "Change Password";
             button6.UseVisualStyleBackColor = false;
             button6.Click += button6_Click;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.FromArgb(126, 34, 206);
-            label2.Location = new Point(28, 19);
-            label2.Name = "label2";
-            label2.Size = new Size(206, 31);
-            label2.TabIndex = 42;
-            label2.Text = "Manage Password";
             // 
             // panel_head
             // 
@@ -481,6 +473,17 @@
             panel_head.Name = "panel_head";
             panel_head.Size = new Size(1120, 90);
             panel_head.TabIndex = 1;
+            // 
+            // profile
+            // 
+            profile.BackColor = SystemColors.Control;
+            profile.Location = new Point(1020, 3);
+            profile.Margin = new Padding(0);
+            profile.Name = "profile";
+            profile.Size = new Size(97, 84);
+            profile.SizeMode = PictureBoxSizeMode.Zoom;
+            profile.TabIndex = 49;
+            profile.TabStop = false;
             // 
             // label1
             // 
@@ -509,16 +512,38 @@
             sqlCommand1.CommandTimeout = 30;
             sqlCommand1.EnableOptimizedParameterBinding = false;
             // 
-            // profile
+            // panel7
             // 
-            profile.BackColor = SystemColors.Control;
-            profile.Location = new Point(1020, 3);
-            profile.Margin = new Padding(0);
-            profile.Name = "profile";
-            profile.Size = new Size(97, 84);
-            profile.SizeMode = PictureBoxSizeMode.Zoom;
-            profile.TabIndex = 49;
-            profile.TabStop = false;
+            panel7.BackColor = Color.FromArgb(192, 129, 247);
+            panel7.Controls.Add(label_showm);
+            panel7.Location = new Point(28, 32);
+            panel7.Margin = new Padding(20, 10, 20, 0);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(477, 54);
+            panel7.TabIndex = 47;
+            // 
+            // label_showm
+            // 
+            label_showm.AutoSize = true;
+            label_showm.Cursor = Cursors.Hand;
+            label_showm.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label_showm.ForeColor = Color.White;
+            label_showm.Location = new Point(22, 10);
+            label_showm.Name = "label_showm";
+            label_showm.Size = new Size(216, 31);
+            label_showm.TabIndex = 44;
+            label_showm.Text = "Manage Passwords";
+            // 
+            // panel8
+            // 
+            panel8.BackColor = SystemColors.Control;
+            panel8.Controls.Add(button6);
+            panel8.Controls.Add(button7);
+            panel8.Location = new Point(28, 86);
+            panel8.Margin = new Padding(0);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(477, 281);
+            panel8.TabIndex = 48;
             // 
             // Form7
             // 
@@ -551,10 +576,12 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             panel_changepassword.ResumeLayout(false);
-            panel_changepassword.PerformLayout();
             panel_head.ResumeLayout(false);
             panel_head.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)profile).EndInit();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
+            panel8.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -585,7 +612,6 @@
         private Panel panel4;
         private Label label3;
         private Panel panel_changepassword;
-        private Label label2;
         private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
         private Panel panel5;
         private Label label5;
@@ -597,5 +623,8 @@
         private Button button7;
         private Button button6;
         private PictureBox profile;
+        private Panel panel8;
+        private Panel panel7;
+        private Label label_showm;
     }
 }

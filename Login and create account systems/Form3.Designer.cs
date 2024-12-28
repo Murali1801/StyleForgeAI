@@ -307,10 +307,10 @@
             // profile
             // 
             profile.BackColor = SystemColors.Control;
-            profile.Location = new Point(998, 0);
+            profile.Location = new Point(995, 3);
             profile.Margin = new Padding(0);
             profile.Name = "profile";
-            profile.Size = new Size(97, 83);
+            profile.Size = new Size(97, 84);
             profile.SizeMode = PictureBoxSizeMode.Zoom;
             profile.TabIndex = 49;
             profile.TabStop = false;
@@ -369,7 +369,7 @@
             button4.Name = "button4";
             button4.Size = new Size(160, 70);
             button4.TabIndex = 3;
-            button4.Text = "Settings";
+            button4.Text = "About";
             button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
             // 
@@ -550,9 +550,9 @@
             panel_recom.Controls.Add(panel_head);
             panel_recom.Location = new Point(250, 0);
             panel_recom.Margin = new Padding(0);
-            panel_recom.MinimumSize = new Size(1150, 6500);
+            panel_recom.MinimumSize = new Size(1150, 1000);
             panel_recom.Name = "panel_recom";
-            panel_recom.Size = new Size(1150, 6500);
+            panel_recom.Size = new Size(1150, 6206);
             panel_recom.TabIndex = 9;
             // 
             // flowLayoutPanel5
@@ -565,9 +565,9 @@
             flowLayoutPanel5.Location = new Point(15, 178);
             flowLayoutPanel5.Margin = new Padding(0);
             flowLayoutPanel5.MaximumSize = new Size(1095, 0);
-            flowLayoutPanel5.MinimumSize = new Size(1095, 100);
+            flowLayoutPanel5.MinimumSize = new Size(1095, 900);
             flowLayoutPanel5.Name = "flowLayoutPanel5";
-            flowLayoutPanel5.Size = new Size(1095, 7374);
+            flowLayoutPanel5.Size = new Size(1095, 6028);
             flowLayoutPanel5.TabIndex = 51;
             // 
             // flowLayoutPanel2
@@ -1022,9 +1022,9 @@
             flowLayoutPanel6.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel6.Location = new Point(0, 874);
             flowLayoutPanel6.Margin = new Padding(0, 20, 0, 0);
-            flowLayoutPanel6.MinimumSize = new Size(1095, 6500);
+            flowLayoutPanel6.MinimumSize = new Size(1095, 90);
             flowLayoutPanel6.Name = "flowLayoutPanel6";
-            flowLayoutPanel6.Size = new Size(1097, 6500);
+            flowLayoutPanel6.Size = new Size(1097, 5154);
             flowLayoutPanel6.TabIndex = 52;
             // 
             // panel8

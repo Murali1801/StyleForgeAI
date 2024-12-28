@@ -156,7 +156,7 @@ namespace Login_and_create_account_systems
             button4.Name = "button4";
             button4.Size = new Size(160, 70);
             button4.TabIndex = 3;
-            button4.Text = "Settings";
+            button4.Text = "About";
             button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
             // 
