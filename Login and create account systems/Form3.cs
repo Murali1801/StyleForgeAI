@@ -728,6 +728,14 @@ namespace Login_and_create_account_systems
                 var content = new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = await client.PostAsync("https://styleforge-rrc-api-v3-168486608630.asia-south1.run.app/rrc-api-v3", content);
+                
+                byte[] responseBytes = await response.Content.ReadAsByteArrayAsync();
+
+                // Define the file path where the raw data will be saved
+                string filePath = @"D:\img_down\image_data.json";
+
+                // Write the raw response bytes to the file
+                File.WriteAllBytes(filePath, responseBytes);
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 Debug.WriteLine(jsonResponse);
                 Console.WriteLine(jsonResponse);
@@ -927,8 +935,10 @@ namespace Login_and_create_account_systems
         private void btnShowRecomProd_Click(object sender, EventArgs e)
         {
             //CallCrawlerApi();
-            DisplayApiResponse();
+
             //CallPythonScript();
+
+            DisplayApiResponse();
         }
     }
 }
