@@ -51,6 +51,7 @@
             panel_nav = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             panel_recom = new Panel();
+            flowLayoutPanel5 = new FlowLayoutPanel();
             flowLayoutPanel2 = new FlowLayoutPanel();
             label3 = new Label();
             panel7 = new Panel();
@@ -84,10 +85,39 @@
             label_txtrecomm = new Label();
             panel6 = new Panel();
             button11 = new Button();
-            button10 = new Button();
+            btnShowRecomProd = new Button();
             button9 = new Button();
             label8 = new Label();
             pictureBox4 = new PictureBox();
+            flowLayoutPanel6 = new FlowLayoutPanel();
+            panel8 = new Panel();
+            label_prodrecom = new Label();
+            panel_productrecomm = new Panel();
+            panel_card5 = new Panel();
+            imgcard5 = new PictureBox();
+            btnBuy5 = new Button();
+            btnTitle5 = new Button();
+            btnPrice5 = new Button();
+            panel_card4 = new Panel();
+            imgcard4 = new PictureBox();
+            btnBuy4 = new Button();
+            btnTitle4 = new Button();
+            btnPrice4 = new Button();
+            panel_card3 = new Panel();
+            imgcard3 = new PictureBox();
+            btnBuy3 = new Button();
+            btnTitle3 = new Button();
+            btnPrice3 = new Button();
+            panel_card2 = new Panel();
+            imgcard2 = new PictureBox();
+            btnBuy2 = new Button();
+            btnTitle2 = new Button();
+            btnPrice2 = new Button();
+            panel_card1 = new Panel();
+            imgcard1 = new PictureBox();
+            btnBuy1 = new Button();
+            btnTitle1 = new Button();
+            btnPrice1 = new Button();
             panel4 = new Panel();
             label_usernameses = new Label();
             label2 = new Label();
@@ -105,6 +135,7 @@
             panel_nav.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             panel_recom.SuspendLayout();
+            flowLayoutPanel5.SuspendLayout();
             flowLayoutPanel2.SuspendLayout();
             panel7.SuspendLayout();
             panel_mhidden.SuspendLayout();
@@ -120,6 +151,19 @@
             flowLayoutPanel4.SuspendLayout();
             panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            flowLayoutPanel6.SuspendLayout();
+            panel8.SuspendLayout();
+            panel_productrecomm.SuspendLayout();
+            panel_card5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)imgcard5).BeginInit();
+            panel_card4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)imgcard4).BeginInit();
+            panel_card3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)imgcard3).BeginInit();
+            panel_card2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)imgcard2).BeginInit();
+            panel_card1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)imgcard1).BeginInit();
             panel4.SuspendLayout();
             SuspendLayout();
             // 
@@ -390,8 +434,7 @@
             panel_recom.AutoScroll = true;
             panel_recom.AutoScrollMinSize = new Size(0, 25000);
             panel_recom.AutoSize = true;
-            panel_recom.Controls.Add(flowLayoutPanel2);
-            panel_recom.Controls.Add(panel6);
+            panel_recom.Controls.Add(flowLayoutPanel5);
             panel_recom.Controls.Add(panel4);
             panel_recom.Controls.Add(panel_head);
             panel_recom.Location = new Point(250, 0);
@@ -400,6 +443,20 @@
             panel_recom.Name = "panel_recom";
             panel_recom.Size = new Size(1150, 5500);
             panel_recom.TabIndex = 9;
+            // 
+            // flowLayoutPanel5
+            // 
+            flowLayoutPanel5.AutoSize = true;
+            flowLayoutPanel5.BackColor = SystemColors.Control;
+            flowLayoutPanel5.Controls.Add(flowLayoutPanel2);
+            flowLayoutPanel5.Controls.Add(panel6);
+            flowLayoutPanel5.Controls.Add(flowLayoutPanel6);
+            flowLayoutPanel5.Location = new Point(15, 183);
+            flowLayoutPanel5.Margin = new Padding(0);
+            flowLayoutPanel5.MaximumSize = new Size(1095, 0);
+            flowLayoutPanel5.Name = "flowLayoutPanel5";
+            flowLayoutPanel5.Size = new Size(1095, 2657);
+            flowLayoutPanel5.TabIndex = 50;
             // 
             // flowLayoutPanel2
             // 
@@ -411,12 +468,13 @@
             flowLayoutPanel2.Controls.Add(panel5);
             flowLayoutPanel2.Controls.Add(flowLayoutPanel3);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel2.Location = new Point(15, 175);
+            flowLayoutPanel2.Location = new Point(0, 0);
+            flowLayoutPanel2.Margin = new Padding(0);
             flowLayoutPanel2.MaximumSize = new Size(653, 10000);
-            flowLayoutPanel2.MinimumSize = new Size(653, 932);
+            flowLayoutPanel2.MinimumSize = new Size(653, 854);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(653, 932);
-            flowLayoutPanel2.TabIndex = 49;
+            flowLayoutPanel2.Size = new Size(653, 854);
+            flowLayoutPanel2.TabIndex = 50;
             // 
             // label3
             // 
@@ -452,7 +510,7 @@
             label_showm.Size = new Size(171, 31);
             label_showm.TabIndex = 44;
             label_showm.Text = "Measurements";
-            label_showm.Click += label_showm_Click;
+            label_showm.Click += label_showm_Click_1;
             // 
             // panel_mhidden
             // 
@@ -751,22 +809,23 @@
             label_txtrecomm.Location = new Point(20, 20);
             label_txtrecomm.Margin = new Padding(20);
             label_txtrecomm.Name = "label_txtrecomm";
-            label_txtrecomm.Size = new Size(264, 31);
+            label_txtrecomm.Size = new Size(385, 31);
             label_txtrecomm.TabIndex = 47;
-            label_txtrecomm.Text = "Text Recommendations";
+            label_txtrecomm.Text = "Recommendations Will Show Here";
             // 
             // panel6
             // 
             panel6.BackColor = Color.White;
             panel6.Controls.Add(button11);
-            panel6.Controls.Add(button10);
+            panel6.Controls.Add(btnShowRecomProd);
             panel6.Controls.Add(button9);
             panel6.Controls.Add(label8);
             panel6.Controls.Add(pictureBox4);
-            panel6.Location = new Point(689, 175);
+            panel6.Location = new Point(674, 0);
+            panel6.Margin = new Padding(21, 0, 0, 0);
             panel6.Name = "panel6";
-            panel6.Size = new Size(421, 932);
-            panel6.TabIndex = 8;
+            panel6.Size = new Size(421, 854);
+            panel6.TabIndex = 51;
             // 
             // button11
             // 
@@ -784,22 +843,22 @@
             button11.Text = "Show Recommended Products";
             button11.UseVisualStyleBackColor = false;
             // 
-            // button10
+            // btnShowRecomProd
             // 
-            button10.BackColor = Color.White;
-            button10.Cursor = Cursors.Hand;
-            button10.FlatAppearance.BorderSize = 0;
-            button10.FlatStyle = FlatStyle.Flat;
-            button10.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button10.ForeColor = Color.White;
-            button10.Image = (Image)resources.GetObject("button10.Image");
-            button10.Location = new Point(23, 635);
-            button10.Name = "button10";
-            button10.Size = new Size(380, 90);
-            button10.TabIndex = 50;
-            button10.Text = "Show Recommended Products";
-            button10.UseVisualStyleBackColor = false;
-            button10.Click += button10_Click;
+            btnShowRecomProd.BackColor = Color.White;
+            btnShowRecomProd.Cursor = Cursors.Hand;
+            btnShowRecomProd.FlatAppearance.BorderSize = 0;
+            btnShowRecomProd.FlatStyle = FlatStyle.Flat;
+            btnShowRecomProd.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnShowRecomProd.ForeColor = Color.White;
+            btnShowRecomProd.Image = (Image)resources.GetObject("btnShowRecomProd.Image");
+            btnShowRecomProd.Location = new Point(23, 635);
+            btnShowRecomProd.Name = "btnShowRecomProd";
+            btnShowRecomProd.Size = new Size(380, 90);
+            btnShowRecomProd.TabIndex = 50;
+            btnShowRecomProd.Text = "Show Recommended Products";
+            btnShowRecomProd.UseVisualStyleBackColor = false;
+            btnShowRecomProd.Click += btnShowRecomProd_Click;
             // 
             // button9
             // 
@@ -816,7 +875,7 @@
             button9.TabIndex = 49;
             button9.Text = "Show Recommendations";
             button9.UseVisualStyleBackColor = false;
-            button9.Click += button9_Click;
+            button9.Click += button9_Click_1;
             // 
             // label8
             // 
@@ -838,6 +897,397 @@
             pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 4;
             pictureBox4.TabStop = false;
+            // 
+            // flowLayoutPanel6
+            // 
+            flowLayoutPanel6.AutoSize = true;
+            flowLayoutPanel6.BackColor = Color.White;
+            flowLayoutPanel6.Controls.Add(panel8);
+            flowLayoutPanel6.Controls.Add(panel_productrecomm);
+            flowLayoutPanel6.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel6.Location = new Point(0, 874);
+            flowLayoutPanel6.Margin = new Padding(0, 20, 0, 0);
+            flowLayoutPanel6.MinimumSize = new Size(1095, 92);
+            flowLayoutPanel6.Name = "flowLayoutPanel6";
+            flowLayoutPanel6.Size = new Size(1097, 1347);
+            flowLayoutPanel6.TabIndex = 52;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.FromArgb(192, 129, 247);
+            panel8.Controls.Add(label_prodrecom);
+            panel8.Location = new Point(20, 20);
+            panel8.Margin = new Padding(20, 20, 20, 0);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(1057, 54);
+            panel8.TabIndex = 52;
+            // 
+            // label_prodrecom
+            // 
+            label_prodrecom.AutoSize = true;
+            label_prodrecom.Cursor = Cursors.Hand;
+            label_prodrecom.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label_prodrecom.ForeColor = Color.White;
+            label_prodrecom.Location = new Point(8, 10);
+            label_prodrecom.Name = "label_prodrecom";
+            label_prodrecom.Size = new Size(304, 31);
+            label_prodrecom.TabIndex = 44;
+            label_prodrecom.Text = "Product Recommendations";
+            label_prodrecom.Click += label_prodrecom_Click;
+            // 
+            // panel_productrecomm
+            // 
+            panel_productrecomm.BackColor = Color.WhiteSmoke;
+            panel_productrecomm.Controls.Add(panel_card5);
+            panel_productrecomm.Controls.Add(panel_card4);
+            panel_productrecomm.Controls.Add(panel_card3);
+            panel_productrecomm.Controls.Add(panel_card2);
+            panel_productrecomm.Controls.Add(panel_card1);
+            panel_productrecomm.Location = new Point(20, 74);
+            panel_productrecomm.Margin = new Padding(20, 0, 20, 20);
+            panel_productrecomm.Name = "panel_productrecomm";
+            panel_productrecomm.Size = new Size(1057, 1253);
+            panel_productrecomm.TabIndex = 54;
+            // 
+            // panel_card5
+            // 
+            panel_card5.BackColor = SystemColors.Control;
+            panel_card5.Controls.Add(imgcard5);
+            panel_card5.Controls.Add(btnBuy5);
+            panel_card5.Controls.Add(btnTitle5);
+            panel_card5.Controls.Add(btnPrice5);
+            panel_card5.Location = new Point(545, 625);
+            panel_card5.Margin = new Padding(0);
+            panel_card5.Name = "panel_card5";
+            panel_card5.Size = new Size(325, 591);
+            panel_card5.TabIndex = 54;
+            // 
+            // imgcard5
+            // 
+            imgcard5.BackColor = Color.White;
+            imgcard5.Location = new Point(0, 0);
+            imgcard5.Name = "imgcard5";
+            imgcard5.Size = new Size(325, 428);
+            imgcard5.SizeMode = PictureBoxSizeMode.Zoom;
+            imgcard5.TabIndex = 7;
+            imgcard5.TabStop = false;
+            // 
+            // btnBuy5
+            // 
+            btnBuy5.BackColor = Color.FromArgb(192, 129, 247);
+            btnBuy5.FlatAppearance.BorderSize = 0;
+            btnBuy5.FlatStyle = FlatStyle.Flat;
+            btnBuy5.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBuy5.ForeColor = Color.White;
+            btnBuy5.Location = new Point(0, 542);
+            btnBuy5.Margin = new Padding(0);
+            btnBuy5.Name = "btnBuy5";
+            btnBuy5.Size = new Size(325, 49);
+            btnBuy5.TabIndex = 4;
+            btnBuy5.Text = "Buy Now";
+            btnBuy5.UseVisualStyleBackColor = false;
+            // 
+            // btnTitle5
+            // 
+            btnTitle5.BackColor = Color.FromArgb(192, 129, 247);
+            btnTitle5.FlatAppearance.BorderSize = 0;
+            btnTitle5.FlatStyle = FlatStyle.Flat;
+            btnTitle5.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTitle5.ForeColor = Color.White;
+            btnTitle5.Location = new Point(0, 426);
+            btnTitle5.Margin = new Padding(0, 0, 0, 1);
+            btnTitle5.Name = "btnTitle5";
+            btnTitle5.Size = new Size(325, 65);
+            btnTitle5.TabIndex = 6;
+            btnTitle5.Text = "Title";
+            btnTitle5.UseVisualStyleBackColor = false;
+            // 
+            // btnPrice5
+            // 
+            btnPrice5.BackColor = Color.FromArgb(192, 129, 247);
+            btnPrice5.FlatAppearance.BorderSize = 0;
+            btnPrice5.FlatStyle = FlatStyle.Flat;
+            btnPrice5.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPrice5.ForeColor = Color.White;
+            btnPrice5.Location = new Point(0, 492);
+            btnPrice5.Margin = new Padding(0, 0, 0, 1);
+            btnPrice5.Name = "btnPrice5";
+            btnPrice5.Size = new Size(325, 49);
+            btnPrice5.TabIndex = 5;
+            btnPrice5.Text = "Price";
+            btnPrice5.UseVisualStyleBackColor = false;
+            // 
+            // panel_card4
+            // 
+            panel_card4.BackColor = SystemColors.Control;
+            panel_card4.Controls.Add(imgcard4);
+            panel_card4.Controls.Add(btnBuy4);
+            panel_card4.Controls.Add(btnTitle4);
+            panel_card4.Controls.Add(btnPrice4);
+            panel_card4.Location = new Point(199, 625);
+            panel_card4.Margin = new Padding(0);
+            panel_card4.Name = "panel_card4";
+            panel_card4.Size = new Size(325, 591);
+            panel_card4.TabIndex = 53;
+            // 
+            // imgcard4
+            // 
+            imgcard4.BackColor = Color.White;
+            imgcard4.Location = new Point(0, 0);
+            imgcard4.Name = "imgcard4";
+            imgcard4.Size = new Size(325, 428);
+            imgcard4.SizeMode = PictureBoxSizeMode.Zoom;
+            imgcard4.TabIndex = 7;
+            imgcard4.TabStop = false;
+            // 
+            // btnBuy4
+            // 
+            btnBuy4.BackColor = Color.FromArgb(192, 129, 247);
+            btnBuy4.FlatAppearance.BorderSize = 0;
+            btnBuy4.FlatStyle = FlatStyle.Flat;
+            btnBuy4.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBuy4.ForeColor = Color.White;
+            btnBuy4.Location = new Point(0, 542);
+            btnBuy4.Margin = new Padding(0);
+            btnBuy4.Name = "btnBuy4";
+            btnBuy4.Size = new Size(325, 49);
+            btnBuy4.TabIndex = 4;
+            btnBuy4.Text = "Buy Now";
+            btnBuy4.UseVisualStyleBackColor = false;
+            // 
+            // btnTitle4
+            // 
+            btnTitle4.BackColor = Color.FromArgb(192, 129, 247);
+            btnTitle4.FlatAppearance.BorderSize = 0;
+            btnTitle4.FlatStyle = FlatStyle.Flat;
+            btnTitle4.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTitle4.ForeColor = Color.White;
+            btnTitle4.Location = new Point(0, 426);
+            btnTitle4.Margin = new Padding(0, 0, 0, 1);
+            btnTitle4.Name = "btnTitle4";
+            btnTitle4.Size = new Size(325, 65);
+            btnTitle4.TabIndex = 6;
+            btnTitle4.Text = "Title";
+            btnTitle4.UseVisualStyleBackColor = false;
+            // 
+            // btnPrice4
+            // 
+            btnPrice4.BackColor = Color.FromArgb(192, 129, 247);
+            btnPrice4.FlatAppearance.BorderSize = 0;
+            btnPrice4.FlatStyle = FlatStyle.Flat;
+            btnPrice4.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPrice4.ForeColor = Color.White;
+            btnPrice4.Location = new Point(0, 492);
+            btnPrice4.Margin = new Padding(0, 0, 0, 1);
+            btnPrice4.Name = "btnPrice4";
+            btnPrice4.Size = new Size(325, 49);
+            btnPrice4.TabIndex = 5;
+            btnPrice4.Text = "Price";
+            btnPrice4.UseVisualStyleBackColor = false;
+            // 
+            // panel_card3
+            // 
+            panel_card3.BackColor = SystemColors.Control;
+            panel_card3.Controls.Add(imgcard3);
+            panel_card3.Controls.Add(btnBuy3);
+            panel_card3.Controls.Add(btnTitle3);
+            panel_card3.Controls.Add(btnPrice3);
+            panel_card3.Location = new Point(710, 16);
+            panel_card3.Margin = new Padding(0);
+            panel_card3.Name = "panel_card3";
+            panel_card3.Size = new Size(325, 591);
+            panel_card3.TabIndex = 52;
+            // 
+            // imgcard3
+            // 
+            imgcard3.BackColor = Color.White;
+            imgcard3.Location = new Point(0, 0);
+            imgcard3.Name = "imgcard3";
+            imgcard3.Size = new Size(325, 428);
+            imgcard3.SizeMode = PictureBoxSizeMode.Zoom;
+            imgcard3.TabIndex = 7;
+            imgcard3.TabStop = false;
+            // 
+            // btnBuy3
+            // 
+            btnBuy3.BackColor = Color.FromArgb(192, 129, 247);
+            btnBuy3.FlatAppearance.BorderSize = 0;
+            btnBuy3.FlatStyle = FlatStyle.Flat;
+            btnBuy3.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBuy3.ForeColor = Color.White;
+            btnBuy3.Location = new Point(0, 542);
+            btnBuy3.Margin = new Padding(0);
+            btnBuy3.Name = "btnBuy3";
+            btnBuy3.Size = new Size(325, 49);
+            btnBuy3.TabIndex = 4;
+            btnBuy3.Text = "Buy Now";
+            btnBuy3.UseVisualStyleBackColor = false;
+            // 
+            // btnTitle3
+            // 
+            btnTitle3.BackColor = Color.FromArgb(192, 129, 247);
+            btnTitle3.FlatAppearance.BorderSize = 0;
+            btnTitle3.FlatStyle = FlatStyle.Flat;
+            btnTitle3.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTitle3.ForeColor = Color.White;
+            btnTitle3.Location = new Point(0, 426);
+            btnTitle3.Margin = new Padding(0, 0, 0, 1);
+            btnTitle3.Name = "btnTitle3";
+            btnTitle3.Size = new Size(325, 65);
+            btnTitle3.TabIndex = 6;
+            btnTitle3.Text = "Title";
+            btnTitle3.UseVisualStyleBackColor = false;
+            // 
+            // btnPrice3
+            // 
+            btnPrice3.BackColor = Color.FromArgb(192, 129, 247);
+            btnPrice3.FlatAppearance.BorderSize = 0;
+            btnPrice3.FlatStyle = FlatStyle.Flat;
+            btnPrice3.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPrice3.ForeColor = Color.White;
+            btnPrice3.Location = new Point(0, 492);
+            btnPrice3.Margin = new Padding(0, 0, 0, 1);
+            btnPrice3.Name = "btnPrice3";
+            btnPrice3.Size = new Size(325, 49);
+            btnPrice3.TabIndex = 5;
+            btnPrice3.Text = "Price";
+            btnPrice3.UseVisualStyleBackColor = false;
+            // 
+            // panel_card2
+            // 
+            panel_card2.BackColor = SystemColors.Control;
+            panel_card2.Controls.Add(imgcard2);
+            panel_card2.Controls.Add(btnBuy2);
+            panel_card2.Controls.Add(btnTitle2);
+            panel_card2.Controls.Add(btnPrice2);
+            panel_card2.Location = new Point(365, 16);
+            panel_card2.Margin = new Padding(0);
+            panel_card2.Name = "panel_card2";
+            panel_card2.Size = new Size(325, 591);
+            panel_card2.TabIndex = 51;
+            // 
+            // imgcard2
+            // 
+            imgcard2.BackColor = Color.White;
+            imgcard2.Location = new Point(0, 0);
+            imgcard2.Name = "imgcard2";
+            imgcard2.Size = new Size(325, 428);
+            imgcard2.SizeMode = PictureBoxSizeMode.Zoom;
+            imgcard2.TabIndex = 7;
+            imgcard2.TabStop = false;
+            // 
+            // btnBuy2
+            // 
+            btnBuy2.BackColor = Color.FromArgb(192, 129, 247);
+            btnBuy2.FlatAppearance.BorderSize = 0;
+            btnBuy2.FlatStyle = FlatStyle.Flat;
+            btnBuy2.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBuy2.ForeColor = Color.White;
+            btnBuy2.Location = new Point(0, 542);
+            btnBuy2.Margin = new Padding(0);
+            btnBuy2.Name = "btnBuy2";
+            btnBuy2.Size = new Size(325, 49);
+            btnBuy2.TabIndex = 4;
+            btnBuy2.Text = "Buy Now";
+            btnBuy2.UseVisualStyleBackColor = false;
+            // 
+            // btnTitle2
+            // 
+            btnTitle2.BackColor = Color.FromArgb(192, 129, 247);
+            btnTitle2.FlatAppearance.BorderSize = 0;
+            btnTitle2.FlatStyle = FlatStyle.Flat;
+            btnTitle2.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTitle2.ForeColor = Color.White;
+            btnTitle2.Location = new Point(0, 426);
+            btnTitle2.Margin = new Padding(0, 0, 0, 1);
+            btnTitle2.Name = "btnTitle2";
+            btnTitle2.Size = new Size(325, 65);
+            btnTitle2.TabIndex = 6;
+            btnTitle2.Text = "Title";
+            btnTitle2.UseVisualStyleBackColor = false;
+            // 
+            // btnPrice2
+            // 
+            btnPrice2.BackColor = Color.FromArgb(192, 129, 247);
+            btnPrice2.FlatAppearance.BorderSize = 0;
+            btnPrice2.FlatStyle = FlatStyle.Flat;
+            btnPrice2.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPrice2.ForeColor = Color.White;
+            btnPrice2.Location = new Point(0, 492);
+            btnPrice2.Margin = new Padding(0, 0, 0, 1);
+            btnPrice2.Name = "btnPrice2";
+            btnPrice2.Size = new Size(325, 49);
+            btnPrice2.TabIndex = 5;
+            btnPrice2.Text = "Price";
+            btnPrice2.UseVisualStyleBackColor = false;
+            // 
+            // panel_card1
+            // 
+            panel_card1.BackColor = SystemColors.Control;
+            panel_card1.Controls.Add(imgcard1);
+            panel_card1.Controls.Add(btnBuy1);
+            panel_card1.Controls.Add(btnTitle1);
+            panel_card1.Controls.Add(btnPrice1);
+            panel_card1.Location = new Point(20, 16);
+            panel_card1.Margin = new Padding(0);
+            panel_card1.Name = "panel_card1";
+            panel_card1.Size = new Size(325, 591);
+            panel_card1.TabIndex = 50;
+            // 
+            // imgcard1
+            // 
+            imgcard1.BackColor = Color.White;
+            imgcard1.Location = new Point(0, 0);
+            imgcard1.Name = "imgcard1";
+            imgcard1.Size = new Size(325, 428);
+            imgcard1.SizeMode = PictureBoxSizeMode.Zoom;
+            imgcard1.TabIndex = 7;
+            imgcard1.TabStop = false;
+            // 
+            // btnBuy1
+            // 
+            btnBuy1.BackColor = Color.FromArgb(192, 129, 247);
+            btnBuy1.FlatAppearance.BorderSize = 0;
+            btnBuy1.FlatStyle = FlatStyle.Flat;
+            btnBuy1.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBuy1.ForeColor = Color.White;
+            btnBuy1.Location = new Point(0, 542);
+            btnBuy1.Margin = new Padding(0);
+            btnBuy1.Name = "btnBuy1";
+            btnBuy1.Size = new Size(325, 49);
+            btnBuy1.TabIndex = 4;
+            btnBuy1.Text = "Buy Now";
+            btnBuy1.UseVisualStyleBackColor = false;
+            // 
+            // btnTitle1
+            // 
+            btnTitle1.BackColor = Color.FromArgb(192, 129, 247);
+            btnTitle1.FlatAppearance.BorderSize = 0;
+            btnTitle1.FlatStyle = FlatStyle.Flat;
+            btnTitle1.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTitle1.ForeColor = Color.White;
+            btnTitle1.Location = new Point(0, 426);
+            btnTitle1.Margin = new Padding(0, 0, 0, 1);
+            btnTitle1.Name = "btnTitle1";
+            btnTitle1.Size = new Size(325, 65);
+            btnTitle1.TabIndex = 6;
+            btnTitle1.Text = "Title";
+            btnTitle1.UseVisualStyleBackColor = false;
+            // 
+            // btnPrice1
+            // 
+            btnPrice1.BackColor = Color.FromArgb(192, 129, 247);
+            btnPrice1.FlatAppearance.BorderSize = 0;
+            btnPrice1.FlatStyle = FlatStyle.Flat;
+            btnPrice1.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPrice1.ForeColor = Color.White;
+            btnPrice1.Location = new Point(0, 492);
+            btnPrice1.Margin = new Padding(0, 0, 0, 1);
+            btnPrice1.Name = "btnPrice1";
+            btnPrice1.Size = new Size(325, 49);
+            btnPrice1.TabIndex = 5;
+            btnPrice1.Text = "Price";
+            btnPrice1.UseVisualStyleBackColor = false;
             // 
             // panel4
             // 
@@ -898,6 +1348,8 @@
             flowLayoutPanel1.PerformLayout();
             panel_recom.ResumeLayout(false);
             panel_recom.PerformLayout();
+            flowLayoutPanel5.ResumeLayout(false);
+            flowLayoutPanel5.PerformLayout();
             flowLayoutPanel2.ResumeLayout(false);
             flowLayoutPanel2.PerformLayout();
             panel7.ResumeLayout(false);
@@ -926,6 +1378,20 @@
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            flowLayoutPanel6.ResumeLayout(false);
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
+            panel_productrecomm.ResumeLayout(false);
+            panel_card5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)imgcard5).EndInit();
+            panel_card4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)imgcard4).EndInit();
+            panel_card3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)imgcard3).EndInit();
+            panel_card2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)imgcard2).EndInit();
+            panel_card1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)imgcard1).EndInit();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ResumeLayout(false);
@@ -959,30 +1425,12 @@
         private Label label_usernameses;
         private Label label2;
         private PictureBox profile;
-        private Panel panel6;
-        private Label label8;
-        private PictureBox pictureBox4;
-        private Button button9;
-        private Button button11;
-        private Button button10;
+        private Label label9;
         private FlowLayoutPanel flowLayoutPanel2;
         private Label label3;
         private Panel panel7;
         private Label label_showm;
         private Panel panel_mhidden;
-        private Panel panel5;
-        private Label label7;
-        private Panel panel8;
-        private Label label9;
-        private Label label_height;
-        private Label label11;
-        private Panel panel11;
-        private Label label13;
-        private Label label_chest;
-        private Panel panel10;
-        private Label label5;
-        private Label label_shoulder;
-        private Panel panel9;
         private Panel panel15;
         private Label label21;
         private Label label_ratio;
@@ -995,8 +1443,55 @@
         private Panel panel12;
         private Label label15;
         private Label label_waist;
+        private Panel panel11;
+        private Label label13;
+        private Label label_chest;
+        private Panel panel10;
+        private Label label5;
+        private Label label_shoulder;
+        private Panel panel9;
+        private Label label11;
+        private Label label_height;
+        private Panel panel5;
+        private Label label7;
         private FlowLayoutPanel flowLayoutPanel3;
         private FlowLayoutPanel flowLayoutPanel4;
         private Label label_txtrecomm;
+        private Panel panel6;
+        private Button button11;
+        private Button btnShowRecomProd;
+        private Button button9;
+        private Label label8;
+        private PictureBox pictureBox4;
+        private FlowLayoutPanel flowLayoutPanel5;
+        private FlowLayoutPanel flowLayoutPanel6;
+        private Panel panel8;
+        private Label label_prodrecom;
+        private Panel panel_productrecomm;
+        private Panel panel_card5;
+        private PictureBox imgcard5;
+        private Button btnBuy5;
+        private Button btnTitle5;
+        private Button btnPrice5;
+        private Panel panel_card4;
+        private PictureBox imgcard4;
+        private Button btnBuy4;
+        private Button btnTitle4;
+        private Button btnPrice4;
+        private Panel panel_card3;
+        private PictureBox imgcard3;
+        private Button btnBuy3;
+        private Button btnTitle3;
+        private Button btnPrice3;
+        private Panel panel_card2;
+        private PictureBox imgcard2;
+        private Button btnBuy2;
+        private Button btnTitle2;
+        private Button btnPrice2;
+        private Panel panel_card1;
+        private PictureBox imgcard1;
+        private Button btnBuy1;
+        private Button btnTitle1;
+        private Button btnPrice1;
     }
 }

@@ -27,6 +27,16 @@ namespace Login_and_create_account_systems
 
         public static string jsonmeasurements { get; set; }
 
+        public static string topWearQuery { get; set; }
+
+        public static string bottomWearQuery { get; set; }
+
+        public static string shoesQuery { get; set; }
+
+        public static string colorRecommendationsQuery { get; set; }
+
+        public static string crawlerApiResponse { get; set; }
+
         public static void ClearSession()
         {
             UserID = 0;
@@ -43,6 +53,11 @@ namespace Login_and_create_account_systems
             SubjectHip = null;
             SubjectArm = null;
             WaistToHipRatio = null;
-        }
+            topWearQuery = null;
+            bottomWearQuery = null;
+            shoesQuery = null;
+            colorRecommendationsQuery = null;
+            crawlerApiResponse = null;
+    }
     }
 }
