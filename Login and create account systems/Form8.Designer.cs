@@ -50,11 +50,20 @@
             panel2 = new Panel();
             panel_hidden = new Panel();
             panel3 = new Panel();
-            flowLayoutPanel1 = new FlowLayoutPanel();
             panel4 = new Panel();
-            panel5 = new Panel();
-            panel6 = new Panel();
-            panel7 = new Panel();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            label2 = new Label();
+            label3 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            label7 = new Label();
+            label8 = new Label();
+            label9 = new Label();
+            label10 = new Label();
+            label11 = new Label();
+            label12 = new Label();
+            label13 = new Label();
+            label14 = new Label();
             panel_nav.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
@@ -68,6 +77,7 @@
             panel2.SuspendLayout();
             panel_hidden.SuspendLayout();
             panel3.SuspendLayout();
+            panel4.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -212,9 +222,9 @@
             label1.ForeColor = Color.FromArgb(126, 34, 206);
             label1.Location = new Point(28, 40);
             label1.Name = "label1";
-            label1.Size = new Size(102, 31);
+            label1.Size = new Size(81, 31);
             label1.TabIndex = 41;
-            label1.Text = "Settings";
+            label1.Text = "About";
             // 
             // button5
             // 
@@ -244,7 +254,7 @@
             button1.Name = "button1";
             button1.Size = new Size(160, 70);
             button1.TabIndex = 0;
-            button1.Text = "Settings";
+            button1.Text = "About";
             button1.UseVisualStyleBackColor = false;
             // 
             // button4
@@ -323,9 +333,6 @@
             // panel3
             // 
             panel3.AutoSize = true;
-            panel3.Controls.Add(panel7);
-            panel3.Controls.Add(panel6);
-            panel3.Controls.Add(panel5);
             panel3.Controls.Add(panel4);
             panel3.Controls.Add(panel_head);
             panel3.Dock = DockStyle.Fill;
@@ -335,6 +342,26 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(1150, 800);
             panel3.TabIndex = 9;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.White;
+            panel4.Controls.Add(label14);
+            panel4.Controls.Add(label13);
+            panel4.Controls.Add(label12);
+            panel4.Controls.Add(label11);
+            panel4.Controls.Add(label10);
+            panel4.Controls.Add(label9);
+            panel4.Controls.Add(label8);
+            panel4.Controls.Add(label7);
+            panel4.Controls.Add(label6);
+            panel4.Controls.Add(label5);
+            panel4.Controls.Add(label3);
+            panel4.Controls.Add(label2);
+            panel4.Location = new Point(15, 127);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(1117, 600);
+            panel4.TabIndex = 2;
             // 
             // flowLayoutPanel1
             // 
@@ -349,37 +376,139 @@
             flowLayoutPanel1.Size = new Size(1400, 800);
             flowLayoutPanel1.TabIndex = 5;
             // 
-            // panel4
+            // label2
             // 
-            panel4.BackColor = Color.White;
-            panel4.Location = new Point(15, 127);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(1117, 113);
-            panel4.TabIndex = 2;
+            label2.AutoSize = true;
+            label2.Font = new Font("Nirmala UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.Black;
+            label2.Location = new Point(16, 19);
+            label2.Name = "label2";
+            label2.Size = new Size(333, 46);
+            label2.TabIndex = 42;
+            label2.Text = "About StyleForgeAI";
             // 
-            // panel5
+            // label3
             // 
-            panel5.BackColor = Color.White;
-            panel5.Location = new Point(769, 269);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(366, 509);
-            panel5.TabIndex = 3;
+            label3.AutoSize = true;
+            label3.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.FromArgb(126, 34, 206);
+            label3.Location = new Point(16, 75);
+            label3.MaximumSize = new Size(1070, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(1070, 155);
+            label3.TabIndex = 50;
+            label3.Text = resources.GetString("label3.Text");
             // 
-            // panel6
+            // label5
             // 
-            panel6.BackColor = Color.White;
-            panel6.Location = new Point(15, 269);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(725, 155);
-            panel6.TabIndex = 4;
+            label5.AutoSize = true;
+            label5.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(16, 243);
+            label5.Name = "label5";
+            label5.Size = new Size(204, 31);
+            label5.TabIndex = 51;
+            label5.Text = "The app suggests:";
             // 
-            // panel7
+            // label6
             // 
-            panel7.BackColor = Color.White;
-            panel7.Location = new Point(15, 455);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(725, 171);
-            panel7.TabIndex = 5;
+            label6.AutoSize = true;
+            label6.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.FromArgb(126, 34, 206);
+            label6.Location = new Point(45, 290);
+            label6.Name = "label6";
+            label6.Size = new Size(674, 31);
+            label6.TabIndex = 52;
+            label6.Text = "Top Wear: Perfectly fitting tops based on your measurements.";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.FromArgb(126, 34, 206);
+            label7.Location = new Point(45, 328);
+            label7.Name = "label7";
+            label7.Size = new Size(709, 31);
+            label7.TabIndex = 53;
+            label7.Text = "Bottom Wear: Bottoms that complement your body proportions.";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = Color.FromArgb(126, 34, 206);
+            label8.Location = new Point(45, 365);
+            label8.Name = "label8";
+            label8.Size = new Size(510, 31);
+            label8.TabIndex = 54;
+            label8.Text = "Shoes: Styles that align with your overall look.";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.ForeColor = Color.FromArgb(126, 34, 206);
+            label9.Location = new Point(45, 401);
+            label9.Name = "label9";
+            label9.Size = new Size(1038, 31);
+            label9.TabIndex = 55;
+            label9.Text = "Color Tones: Recommendations for color palettes that suit your complexion and measurements.";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.ForeColor = Color.FromArgb(126, 34, 206);
+            label10.Location = new Point(16, 440);
+            label10.MaximumSize = new Size(1070, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(1037, 124);
+            label10.TabIndex = 56;
+            label10.Text = resources.GetString("label10.Text");
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.ForeColor = Color.Black;
+            label11.Location = new Point(16, 328);
+            label11.Name = "label11";
+            label11.Size = new Size(33, 31);
+            label11.TabIndex = 50;
+            label11.Text = "2.";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.ForeColor = Color.Black;
+            label12.Location = new Point(16, 365);
+            label12.Name = "label12";
+            label12.Size = new Size(33, 31);
+            label12.TabIndex = 57;
+            label12.Text = "3.";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label13.ForeColor = Color.Black;
+            label13.Location = new Point(16, 290);
+            label13.Name = "label13";
+            label13.Size = new Size(33, 31);
+            label13.TabIndex = 58;
+            label13.Text = "1.";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Nirmala UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = Color.Black;
+            label14.Location = new Point(16, 401);
+            label14.Name = "label14";
+            label14.Size = new Size(33, 31);
+            label14.TabIndex = 59;
+            label14.Text = "4.";
             // 
             // Form8
             // 
@@ -406,6 +535,8 @@
             panel_hidden.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             flowLayoutPanel1.ResumeLayout(false);
             flowLayoutPanel1.PerformLayout();
             ResumeLayout(false);
@@ -436,9 +567,18 @@
         private Panel panel3;
         private FlowLayoutPanel flowLayoutPanel1;
         private PictureBox profile;
-        private Panel panel7;
-        private Panel panel6;
-        private Panel panel5;
         private Panel panel4;
+        private Label label2;
+        private Label label9;
+        private Label label8;
+        private Label label7;
+        private Label label6;
+        private Label label5;
+        private Label label3;
+        private Label label11;
+        private Label label10;
+        private Label label14;
+        private Label label13;
+        private Label label12;
     }
 }
