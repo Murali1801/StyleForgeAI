@@ -46,9 +46,20 @@ namespace Login_and_create_account_systems
             HideProdRecom();
             //LoadImage();
             //LoadImageAsync1();
+            LoadImageFromAPi();
 
         }
 
+        private void LoadImageFromAPi()
+        {
+            if(UserSession.crawlerApiResponse == null)
+            {
+                return;
+            } else
+            {
+                DisplayApiResponse();
+            }
+        }
         private async void LoadImageAsync()
         {
             string url = "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQuGV6tnt1wxfIqqFQ4R94lKM2PuBji5Dq20I_rACIPzfZj2dw2t1rbP1lO0f1rpFOCcRLHuU57rqdIUyL_IouJ3sgjzmIRlg&usqp=CAY.webp";
