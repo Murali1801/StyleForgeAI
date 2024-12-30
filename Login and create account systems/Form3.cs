@@ -715,9 +715,9 @@ namespace Login_and_create_account_systems
         {
             string apikey = "fw_3Zm3kcX4SQ3d5GKexgtRdrvW";
 
-            string username = "muralidharacharya7";
+            string username = "kurisu01533";
 
-            string accesskey = "UUKsq9xWAVEXPH0qkqXBm0QIB6mUUSqYCOwdzSgI0vre2dqEff";
+            string accesskey = "ByCOaecKmX3pPHiKDBKu5LtwFEW6M5bkXrSOV9R1oK3HTizZXq";
 
             var payload = new
             {
@@ -731,11 +731,16 @@ namespace Login_and_create_account_systems
 
             string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
 
-            using (HttpClient client = new HttpClient())
+            using (HttpClient client = new HttpClient()
+            {
+                Timeout = TimeSpan.FromMinutes(5) // Set timeout to 5 minutes
+            })
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 var content = new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json");
+
+                //Timeout = TimeSpan.FromMinutes(5) // Increase timeout to 5 minutes
 
                 HttpResponseMessage response = await client.PostAsync("https://styleforge-rrc-api-v3-168486608630.asia-south1.run.app/rrc-api-v3", content);
 

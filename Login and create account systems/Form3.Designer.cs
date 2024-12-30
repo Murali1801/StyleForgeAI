@@ -84,7 +84,6 @@
             flowLayoutPanel4 = new FlowLayoutPanel();
             label_txtrecomm = new Label();
             panel6 = new Panel();
-            button11 = new Button();
             btnShowRecomProd = new Button();
             btnShowRecm = new Button();
             label8 = new Label();
@@ -552,7 +551,7 @@
             panel_recom.Margin = new Padding(0);
             panel_recom.MinimumSize = new Size(1150, 1000);
             panel_recom.Name = "panel_recom";
-            panel_recom.Size = new Size(1150, 6206);
+            panel_recom.Size = new Size(1150, 5706);
             panel_recom.TabIndex = 9;
             // 
             // flowLayoutPanel5
@@ -928,7 +927,6 @@
             // panel6
             // 
             panel6.BackColor = Color.White;
-            panel6.Controls.Add(button11);
             panel6.Controls.Add(btnShowRecomProd);
             panel6.Controls.Add(btnShowRecm);
             panel6.Controls.Add(label8);
@@ -936,24 +934,8 @@
             panel6.Location = new Point(674, 0);
             panel6.Margin = new Padding(21, 0, 0, 0);
             panel6.Name = "panel6";
-            panel6.Size = new Size(421, 854);
+            panel6.Size = new Size(421, 746);
             panel6.TabIndex = 51;
-            // 
-            // button11
-            // 
-            button11.BackColor = Color.White;
-            button11.Cursor = Cursors.Hand;
-            button11.FlatAppearance.BorderSize = 0;
-            button11.FlatStyle = FlatStyle.Flat;
-            button11.Font = new Font("Nirmala UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button11.ForeColor = Color.White;
-            button11.Image = (Image)resources.GetObject("button11.Image");
-            button11.Location = new Point(23, 740);
-            button11.Name = "button11";
-            button11.Size = new Size(380, 90);
-            button11.TabIndex = 51;
-            button11.Text = "Show Recommended Products";
-            button11.UseVisualStyleBackColor = false;
             // 
             // btnShowRecomProd
             // 
@@ -2669,7 +2651,6 @@
         private FlowLayoutPanel flowLayoutPanel4;
         private Label label_txtrecomm;
         private Panel panel6;
-        private Button button11;
         private Button btnShowRecomProd;
         private Button btnShowRecm;
         private Label label8;
